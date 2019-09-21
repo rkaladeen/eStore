@@ -1,0 +1,6 @@
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.csprojAssemblyReference.cache
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.csproj.CoreCompileInputs.cache
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.RazorAssemblyInfo.cache
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.RazorAssemblyInfo.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.AssemblyInfoInputs.cache
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.AssemblyInfo.cs
