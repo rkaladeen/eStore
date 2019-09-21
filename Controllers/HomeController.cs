@@ -19,69 +19,16 @@ namespace eStore.Controllers
     } 
     public IActionResult Index()
     {
-      if(HttpContext.Session.GetString("UserName") != null)
-      {
-        
-        // ViewBag.AllActivities = dbContext.Activities
-        //     .Include(c => c.Coordinator)
-        //     .Include(p => p.RSVPed)
-        //       .ThenInclude(u2 => u2.User)
-        //     .Include(p => p.RSVPed)            
-        //       .ThenInclude(a => a.Activity)
-        //     .Where(t => t.StartDateTime > DateTime.Now)
-        //     .ToList()
-        //     .OrderBy(u => u.StartDateTime);
-        ViewBag.user_name = HttpContext.Session.GetString("UserName");
-        ViewBag.UserId = HttpContext.Session.GetInt32("User_Id");
-
-        return View("Index");
-      }
-      else
+      if(HttpContext.Session.GetString("UserName") == null)
       {
         return RedirectToAction("LogIn", "User");
       }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      return View("Index");
     }
 
-    // public IActionResult RSVP(int id)
-    // {
-    //   if (HttpContext.Session.GetString("UserName") == null ){
-    //     return RedirectToAction("LogIn", "User");
-    //   }
-    //   RSVPModel NewRSVP = new RSVPModel()
-    //   {
-    //     Activity_Id = id,
-    //     User_Id = (int)HttpContext.Session.GetInt32("User_Id")
-    //   };
-    //   dbContext.RSVPs.Add(NewRSVP);
-    //   dbContext.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
-
-    // public IActionResult cancelActivity(int id)
-    // {
-    //   if (HttpContext.Session.GetString("UserName") == null ){
-    //     return RedirectToAction("LogIn", "User");
-    //   }
-    //   ActivityModel oneActivity = dbContext.Activities.FirstOrDefault(a => a.Activity_Id == id);
-    //   dbContext.Activities.Remove(oneActivity);
-    //   dbContext.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
-
-    // public IActionResult leaveActivity(int id)
-    // {
-    //   if (HttpContext.Session.GetString("UserName") == null ){
-    //     return RedirectToAction("LogIn", "User");
-    //   }
-    //   int? UserId = HttpContext.Session.GetInt32("User_Id");
-    //   RSVPModel rsvp = dbContext.RSVPs
-    //       .Where(r => r.Activity_Id == id && r.User_Id == UserId)
-    //       .FirstOrDefault();
-
-    //   dbContext.RSVPs.Remove(rsvp);
-    //   dbContext.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
+    
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

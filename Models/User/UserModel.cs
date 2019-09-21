@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eStore.Models 
 {
-  public class UserModel : BaseModel
+  public class User : BaseModel
   {
     [Key]
-    public int User_Id {get; set;}
+    public int UserId {get; set;}
 
     [Required]
     [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]
