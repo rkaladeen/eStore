@@ -16,6 +16,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+        <script src="https://kit.fontawesome.com/e2cd4330ca.js"></script>        
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -34,10 +35,10 @@
             {
               <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                  <a class="nav-link text-light" asp-area="" asp-controller="Activity" asp-action="NewActivity">Host Activity</a>
+                  <a class="nav-link text-light" asp-area="" asp-controller="" asp-action="">Sell</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Instructions">Instructions</a>
+                  <a class="nav-link text-light" asp-area="" asp-controller="" asp-action="">Orders</a>
                 </li>
               </ul>;
             }
@@ -52,17 +53,28 @@
               }
               else
               {
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @ViewBag.UserName
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Account">Account</a>
+                    <a class="dropdown-item text-danger" asp-area="" asp-controller="User" asp-action="LogOut">Log Out</a>
+                  </div>
+                </li>
+                
                 <li class="nav-item">
-                  <a class="nav-link text-light">@ViewBag.UserName</a>
+                  <a class="nav-link text-light" asp-area="" asp-controller="" asp-action=""><i class="far fa-comments mr-1"></i><span class="text-danger">2</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-light" asp-area="" asp-controller="User" asp-action="LogOut">Log Out</a>
-                </li>;
+                  <a class="nav-link text-light" asp-area="" asp-controller="" asp-action=""><i class="fas fa-shopping-cart mr-1"></i><span class="text-warning">2</span></a>
+                </li>
               }
             }
 
             
           </ul>
+          
         </div>
       </div>
     </nav>

@@ -73,8 +73,8 @@ namespace eStore.Controllers
         {
           HttpContext.Session.SetString("UserName", userInDb.FirstName);
           HttpContext.Session.SetInt32("UserId", userInDb.UserId);
-          ViewBag.UserName = HttpContext.Session.GetString("UserName");
-          ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+          // ViewBag.UserName = HttpContext.Session.GetString("UserName");
+          // ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
           return RedirectToAction("Index", "Home");
         }
       }

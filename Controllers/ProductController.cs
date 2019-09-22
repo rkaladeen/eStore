@@ -16,8 +16,17 @@ namespace eStore.Controllers
     public ProductController(MyContext context)
     {
       dbContext = context;
-    } 
+    }
 
+    public IActionResult NewProduct(Product product)
+    {
+      if(ModelState.IsValid)
+      {
+        dbContext.Add(product);
+        dbContext.SaveChanges();
+      }
+      return RedirectToAction("Index", "Home");
+    }
 
 // public IActionResult Bid(int id)
     // {
