@@ -57,9 +57,12 @@
                   <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @ViewBag.UserName
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Account">Account</a>
-                    <a class="dropdown-item text-danger" asp-area="" asp-controller="User" asp-action="LogOut">Log Out</a>
+                  <div class="dropdown-menu shadow" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-item jumbotron p-1">
+                      @ViewBag.UserName
+                    </div>
+                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Account">Account Settings</a>
+                    <a class="dropdown-item text-danger" asp-area="" asp-controller="User" asp-action="LogOut">Sign Out</a>
                   </div>
                 </li>
                 
@@ -111,6 +114,8 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace eStore.Models {
   public class LoginUser
   {
-    [Required]
-    [EmailAddress]
+    [Required(ErrorMessage="{0} is required")]
+    [EmailAddress(ErrorMessage="Please enter a valid {0}")]
     public string Email {get; set;}
     
-    [Required]
+    [Required(ErrorMessage="{0} is required")]
     public string Password { get; set; }
   }
 }

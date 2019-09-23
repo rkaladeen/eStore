@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -34,5 +35,7 @@ namespace eStore.Models
     [DataType(DataType.Password)]
     [Display(Name = "Confirm Password")]
     public string Confirm {get;set;}
+
+    // public IFormFile Image {get; set;}
   }
 }
