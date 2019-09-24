@@ -25,7 +25,7 @@ namespace eStore.Controllers
         dbContext.Add(product);
         dbContext.SaveChanges();
       }
-      return RedirectToAction("Index", "Home");
+      return Redirect("/");
     }
 
 // public IActionResult Bid(int id)

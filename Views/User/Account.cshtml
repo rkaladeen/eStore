@@ -2,6 +2,8 @@
   ViewData["Title"] = "Account";
 }
 
+<div class="container">
+
 <h1 class="display-4">Account Information</h1>
 
 <p>Welcome to your profile, @ViewBag.CurrentUser.FirstName</p>
@@ -18,7 +20,11 @@
 
   <div class="list-group col">
     <div class="jumbotron option bg-light shadow border p-4" id="personalinfo">
-      <h5 class="border-bottom">PROFILE</h5>
+      <div class="d-flex justify-content-between border-bottom">
+        <h5 class="">PROFILE</h5>
+        <a class="btn btn-link text-muted" href="#">Edit</a>
+      </div>
+
       <p>@ViewBag.CurrentUser.FirstName @ViewBag.CurrentUser.LastName</p>
       <p>@ViewBag.CurrentUser.Email</p>
     </div>
@@ -60,6 +66,8 @@
 
     </div>
   </div>
+
+</div>
 
 </div>
 
