@@ -8,11 +8,12 @@ namespace eStore.Models
     [Key]
     public int CartId {get; set;}
 
+    public bool isCheckedOut {get; set;} = false;
+
     [Required]
     public int UserId {get; set;}
     public User Shopper {get; set;}
 
-    [Required]
     public List<Product> Products {get; set;}
   }
 }

@@ -31,3 +31,7 @@ C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.dll
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.pdb
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.csproj.CopyComplete
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\User\Account.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Product\Store.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Product\Sell.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Product\Bids.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Product\Orders.g.cshtml.cs

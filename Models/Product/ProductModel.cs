@@ -3,6 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eStore.Models 
 {
+  public class ProductDetails
+  {
+    public string Condition {get; set;}
+
+  }
+
   public class Product : BaseModel
   {
     [Key]
@@ -10,9 +16,10 @@ namespace eStore.Models
 
     [Required]
     [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]
-    public string Name {get; set;}
+    public string Title {get; set;}
 
     [Required]
+    [Display(Name="Image URL")]
     public string ImageURL {get; set;}
 
     [Required]
@@ -27,5 +34,7 @@ namespace eStore.Models
     public int SellerId {get; set;}
     public User Seller {get; set;}
   }
+
+
 
 }

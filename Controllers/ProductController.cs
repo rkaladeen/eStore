@@ -18,6 +18,7 @@ namespace eStore.Controllers
       dbContext = context;
     }
 
+    [HttpPost("/NewProduct")]
     public IActionResult NewProduct(Product product)
     {
       if(ModelState.IsValid)
@@ -26,6 +27,54 @@ namespace eStore.Controllers
         dbContext.SaveChanges();
       }
       return Redirect("/");
+    }
+
+    [HttpGet("/Store")]
+    public IActionResult Store()
+    {
+      if (HttpContext.Session.GetString("UserName") == null)
+      {
+        return Redirect("/LogIn");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      return View();
+    }
+
+    [HttpGet("/Sell")]
+    public IActionResult Sell()
+    {
+      if (HttpContext.Session.GetString("UserName") == null)
+      {
+        return Redirect("/LogIn");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      return View();
+    }
+
+    [HttpGet("/Orders")]
+    public IActionResult Orders()
+    {
+      if (HttpContext.Session.GetString("UserName") == null)
+      {
+        return Redirect("/LogIn");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      return View();
+    }
+
+    [HttpGet("/Bids")]
+    public IActionResult Bids()
+    {
+      if (HttpContext.Session.GetString("UserName") == null)
+      {
+        return Redirect("/LogIn");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      return View();
     }
 
 // public IActionResult Bid(int id)

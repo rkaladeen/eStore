@@ -69,7 +69,7 @@ namespace eStore.Controllers
         dbContext.SaveChanges();
         HttpContext.Session.SetString("UserName", User.FirstName);
         HttpContext.Session.SetInt32("User_Id", User.UserId);
-        return Redirect("");
+        return Redirect("/");
       }
       return View("NewUser");
     }

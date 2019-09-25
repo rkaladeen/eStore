@@ -1,10 +1,20 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+  ViewData["Title"] = "Home Page";
 }
+
+<style>
+html, body {
+  background-color: #f8f9fa;
+}
+
+textarea {
+  resize: none;
+}
+</style>
 
 
 <div class="bg-primary py-4">
-  <form class="col-md-6 mx-auto shadow-lg px-0 rounded">
+  <form class="col-11 col-md-6 mx-auto shadow-lg px-0 rounded">
     <div class="input-group">
       <!-- <select class="input-group-append border bg-dark text-light rounded">
         <option selected>All</option>
@@ -12,7 +22,7 @@
         <option value="2">Two</option>
         <option value="3">Three</option>
       </select> -->
-      <input type="text" class="form-control form-control-lg" id="validationDefaultUsername" placeholder="Search">
+      <textarea class="form-control form-control-lg" id="validationDefaultUsername" rows="1" placeholder="Search"></textarea>
       <div class="input-group-append">
         <button class="btn btn-warning" type="button"><i class="fas fa-search"></i></button>
       </div>
@@ -29,14 +39,20 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner">
+
     <div class="carousel-item active">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
+      <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="#dee2e6"></rect>
+        <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
+      </svg>
+    </div>
+    
+    <div class="carousel-item">
+      <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect width="100%" height="100%" fill="#dee2e6"></rect><text x="50%" y="50%" fill="#555" dy=".3em">Second slide</text></svg>
     </div>
     <div class="carousel-item">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">Second slide</text></svg>
-    </div>
-    <div class="carousel-item">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">Third slide</text></svg>
+      <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: First slide"><title>Placeholder</title><rect width="100%" height="100%" fill="#dee2e6"></rect><text x="50%" y="50%" fill="#555" dy=".3em">Third slide</text></svg>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -49,34 +65,46 @@
   </a>
 </div>
 
-<div class="row bg-dark mx-0 py-2">
+<div class="container">
+<div class="row mx-0 py-2">
+
   <div class="col-sm-3">
-    <div class="card">
+    <a class="btn btn-dark h-100 w-100" href="/Store">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title text-light">Store</h5>
+        <i class="fas fa-store fa-3x text-warning"></i>
       </div>
-    </div>
+    </a>
   </div>
-  <div class="col-sm-4">
-    <div class="card">
+
+  <div class="col-sm-3">
+    <a class="btn btn-dark h-100 w-100" href="/Orders">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title text-light">Orders</h5>
+        <i class="fas fa-box-open fa-3x text-warning"></i>
       </div>
-    </div>
+    </a>
   </div>
-  <div class="col-sm-5">
-    <div class="card">
+
+  <div class="col-sm-3">
+    <a class="btn btn-dark h-100 w-100" href="/Bids">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title text-light">Bids</h5>
+        <i class="fas fa-gavel fa-3x text-warning"></i>
       </div>
-    </div>
+    </a>
   </div>
+
+  <div class="col-sm-3">
+    <a class="btn btn-dark h-100 w-100" href="/Sell">
+      <div class="card-body">
+        <h5 class="card-title text-light">Sell</h5>
+        <i class="fas fa-money-bill-wave fa-3x text-warning"></i>
+      </div>
+    </a>
+  </div>
+
+</div>
 </div>
 
 

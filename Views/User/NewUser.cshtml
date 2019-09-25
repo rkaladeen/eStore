@@ -3,6 +3,13 @@
 }
 
 <style>
+html, body {
+  background-color: #343a40;
+}
+
+textarea {
+  resize: none;
+}
 
 .login-container {
   display: flex;
@@ -118,7 +125,6 @@
   border-bottom: 2px solid #343a40;
 }
 
-
 /* Submit Button */
 .submit-container {
   display: flex;
@@ -175,7 +181,7 @@
 
 </style>
 
-<div class="login-container mx-auto col-md-7">
+<div class="login-container mx-auto col-sm-11 col-md-7 col-lg-8 col-xl-5">
 <section class="login" id="login">
     <header>
       <h2>eStore</h2>
@@ -186,20 +192,20 @@
     <div class="form-row">
       <div class="form-group col-6">
         <label asp-for="FirstName"></label>
-        <input class="login-input" type="text" asp-for="FirstName" autofocus/>
+        <textarea class="login-input" rows="1" asp-for="FirstName" autofocus/></textarea>
         <span class="invalid-feedback d-block" asp-validation-for="FirstName"></span>
       </div>
 
       <div class="form-group col-6">
         <label asp-for="LastName"></label>
-        <input class="login-input" type="text" asp-for="LastName"/>
+        <textarea class="login-input" rows="1" asp-for="LastName"/></textarea>
         <span class="invalid-feedback d-block" asp-validation-for="LastName"></span>
       </div>
     </div>
 
     <div class="form-group">
       <label asp-for="Email"></label>
-      <input class="login-input" type="text" asp-for="Email"/>
+      <textarea class="login-input" rows="1" asp-for="Email"/></textarea>
       <span class="invalid-feedback d-block" asp-validation-for="Email"></span>
     </div>
 
