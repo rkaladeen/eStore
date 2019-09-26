@@ -29,6 +29,18 @@ namespace eStore.Controllers
       return Redirect("/");
     }
 
+    public void UploadImages(List<ProductImage> images)
+    {
+      if(ModelState.IsValid)
+      {
+        foreach(var image in images)
+        {
+          dbContext.Add(image);
+          dbContext.SaveChanges();
+        }
+      }
+    }
+
     [HttpGet("/Store")]
     public IActionResult Store()
     {
@@ -50,6 +62,7 @@ namespace eStore.Controllers
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.AllCategories = dbContext.Categories.ToList();
       return View();
     }
 

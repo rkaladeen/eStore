@@ -12155,11 +12155,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\rkala\\Dropbox\\c#.net\\eStore\\eStore.csproj",
+      "projectUniqueName": "C:\\Users\\rkala\\Dropbox\\c#.net\\eStore\\eStore.csproj",
       "projectName": "eStore",
-      "projectPath": "c:\\Users\\rkala\\Dropbox\\c#.net\\eStore\\eStore.csproj",
+      "projectPath": "C:\\Users\\rkala\\Dropbox\\c#.net\\eStore\\eStore.csproj",
       "packagesPath": "C:\\Users\\rkala\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\rkala\\Dropbox\\c#.net\\eStore\\obj\\",
+      "outputPath": "C:\\Users\\rkala\\Dropbox\\c#.net\\eStore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
