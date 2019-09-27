@@ -36,6 +36,12 @@ namespace eStore.Models
     [Display(Name = "Confirm Password")]
     public string Confirm {get;set;}
 
-    // public IFormFile Image {get; set;}
+    [Required]
+    public bool isAdmin {get; set;}
+
+    [Required]
+    public bool isActive {get; set;}
+    
+    public string AvatarPath {get; set;}
   }
 }

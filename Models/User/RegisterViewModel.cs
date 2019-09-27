@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace eStore.Models
 {
-  public class ProductViewModel
+  public class RegisterViewModel
   {
-    public Product newProduct { get; set; }
+    public User User { get; set; }
     public IFormFile Image { get; set; }
   }
 }

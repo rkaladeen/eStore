@@ -1,0 +1,38 @@
+@{
+  ViewData["Title"] = "Admin";
+}
+
+<div class="container">
+  <h1 class="display-4">Administration</h1>
+  <p>Welcome, @ViewBag.Username <span class="text-danger font-weight-bold">ADMIN</span></p>
+  <div class="row">
+
+    <div class="col-3">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Registered Users</a>
+        <a class="list-group-item list-group-item-action" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Product Categories</a>
+        <a class="list-group-item list-group-item-action" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Empty</a>
+      </div>
+    </div>
+    
+    <div class="col">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+          <partial name="_AllUsers"></partial>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
+          <partial name="_ProductCategory"></partial>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
+          ...
+        </div>
+
+      </div>  
+    </div>
+  </div>
+</div>
+
+
+

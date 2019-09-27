@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStore.Models;
 
 namespace eStore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20190927182010_updateusermodel")]
+    partial class updateusermodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +102,7 @@ namespace eStore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(10);
 
                     b.Property<DateTime>("UpdatedAt");
 
@@ -133,8 +135,6 @@ namespace eStore.Migrations
                         .IsRequired();
 
                     b.Property<DateTime>("UpdatedAt");
-
-                    b.Property<bool>("isActive");
 
                     b.Property<bool>("isAdmin");
 

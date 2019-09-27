@@ -1,22 +1,23 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using eStore.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using eStore.Models;
 
 namespace eStore.Controllers
 {
   public class UserController : Controller
   {
-    private MyContext dbContext;
-    public UserController(MyContext context)
+    private readonly IHostingEnvironment hostingEnvironment;
+    private readonly MyContext dbContext;
+    public UserController(MyContext dbContext, IHostingEnvironment hostingEnvironment)
     {
-      dbContext = context;
+      this.dbContext = dbContext;
+      this.hostingEnvironment = hostingEnvironment;
     }
 
     [HttpGet("User/Register")]
@@ -36,6 +37,9 @@ namespace eStore.Controllers
     {
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+
       if (HttpContext.Session.GetInt32("UserId") == null ){
         return RedirectToAction("LogIn", "User");
       }
@@ -54,21 +58,42 @@ namespace eStore.Controllers
 
     [HttpPost("User/Create")]
     [ValidateAntiForgeryToken]
-    public IActionResult CreateUser(User User)
+    public IActionResult CreateUser(RegisterViewModel model)
     {
       if(ModelState.IsValid)
       {
-        if(dbContext.Users.Any(u => u.Email == User.Email))
+
+        if(dbContext.Users.Any(u => u.Email == model.User.Email))
         {
           ModelState.AddModelError("Email", "Email already in use!");
           return View("NewUser");
         }
+
+        string uniqueFileName = null;
+        if (model.Image != null)
+        {
+          string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+          uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
+          string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+          model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+        }
+        User NewUser = model.User;
+        NewUser.AvatarPath = uniqueFileName;
+        NewUser.isActive = true;
         PasswordHasher<User> Hasher = new PasswordHasher<User>();
-        User.Password = Hasher.HashPassword(User, User.Password);
-        dbContext.Users.Add(User);
+        model.User.Password = Hasher.HashPassword(model.User, model.User.Password);
+        dbContext.Users.Add(NewUser);
         dbContext.SaveChanges();
-        HttpContext.Session.SetString("UserName", User.FirstName);
-        HttpContext.Session.SetInt32("User_Id", User.UserId);
+
+        HttpContext.Session.SetString("UserName", model.User.FirstName);
+        HttpContext.Session.SetInt32("UserId", model.User.UserId);
+        int Admin = 0;
+        if(model.User.isAdmin)
+        {
+          Admin = 1;
+        }
+        HttpContext.Session.SetInt32("isAdmin", Admin);
+        HttpContext.Session.SetString("Avatar", model.User.AvatarPath);
         return Redirect("/");
       }
       return View("NewUser");
@@ -98,6 +123,14 @@ namespace eStore.Controllers
         {
           HttpContext.Session.SetString("UserName", userInDb.FirstName);
           HttpContext.Session.SetInt32("UserId", userInDb.UserId);
+          int Admin = 0;
+          if(userInDb.isAdmin)
+          {
+            Admin = 1;
+          }
+          HttpContext.Session.SetInt32("isAdmin", Admin);
+          HttpContext.Session.SetString("Avatar", userInDb.AvatarPath);
+
           return Redirect("/");
         }
       }

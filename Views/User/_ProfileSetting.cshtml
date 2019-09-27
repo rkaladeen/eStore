@@ -3,6 +3,18 @@
     <h5 class="">PROFILE</h5>
     <a class="btn btn-link text-muted" href="#">Edit</a>
   </div>
-  <p>@ViewBag.CurrentUser.FirstName @ViewBag.CurrentUser.LastName</p>
-  <p>@ViewBag.CurrentUser.Email</p>
+  <div class="row mt-2">
+    <div class="col-sm-4">
+      <img src="~/images/@ViewBag.Avatar" class="rounded w-100">
+    </div>
+    <div class="col-sm-8">
+      <small>Full Name</small>
+      <p>@ViewBag.CurrentUser.FirstName @ViewBag.CurrentUser.LastName</p>
+      <small>Email</small>
+      <p>@ViewBag.CurrentUser.Email</p>
+      <small>Customer Since</small>
+      <p>@ViewBag.CurrentUser.CreatedAt</p>
+      <small>Last Profile Update: @ViewBag.CurrentUser.TimeDiffUpdate()</small>
+    </div>
+  </div>
 </div>

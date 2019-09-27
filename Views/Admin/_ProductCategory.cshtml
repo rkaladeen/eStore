@@ -1,0 +1,12 @@
+@model ProductCategory
+<form asp-controller="Admin" asp-action="AddCategory" method="POST">
+  <div class="jumbotron shadow border mb-0 bg-light">
+    <h4>Add Product Category</h4>
+    <div class="form-group">
+      <label asp-for="Name"></label>
+      <input class="form-control" type="text" asp-for="Name"/>
+      <span class="invalid-feedback d-block" asp-validation-for="Name"></span>
+    </div>
+    <button class="btn btn-primary float-right shadow" type="submit">Submit</button>
+  </div>
+</form>

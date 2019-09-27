@@ -4,20 +4,8 @@
 
 <link rel="stylesheet" href="~/css/store.css" />
 
-<div class="bg-primary py-4">
-  <form class="col-11 col-md-6 mx-auto shadow-lg px-0 rounded">
-    <div class="input-group">
-      <select class="input-group-append border" asp-items="@(new SelectList(ViewBag.AllCategories,"Id","Name"))">
-        <option value="0">All</option>
-      </select>
-      <textarea class="form-control form-control-lg" id="validationDefaultUsername" rows="1" placeholder="Search"></textarea>
-      <div class="input-group-append">
-        <button class="btn btn-warning" type="button"><i class="fas fa-search"></i></button>
-      </div>
-      
-    </div>
-  </form>
-</div>
+<partial name="_Search"></partial>
+
 <div class="">
   <div class="row mx-0 mt-3">
     <div class="col-md-2">

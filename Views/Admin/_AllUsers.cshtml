@@ -1,0 +1,74 @@
+<div class="jumbotron shadow border mb-0 bg-light">
+  <h4>Registered Users</h4>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @{
+      foreach(var user in ViewBag.AllUsers)
+      {
+      <tr>
+        <th scope="row">@user.UserId</th>
+        <td>@user.FirstName</td>
+        <td>@user.LastName</td>
+        <td>@user.Email</td>
+        @if(user.isAdmin)
+        {
+        <td>
+          <span class="badge badge-danger badge-pill">Admin</span>
+          @if(user.isActive)
+          {
+            <span class="badge badge-success badge-pill">Active</span>
+          }
+          else
+          {
+            <span class="badge badge-secondary badge-pill">Inactive</span>
+          }
+        </td>;
+        }
+        else
+        {
+          @if(user.isActive)
+          {
+            <td><span class="badge badge-success badge-pill">Active</span></td>
+          }
+          else
+          {
+            <td><span class="badge badge-secondary badge-pill">Inactive</span></td>
+          }
+        }
+        <td>
+          @if(user.UserId != ViewBag.UserId)
+          {
+            <a href="#" class="far fa-eye btn btn-sm nav-link btn-link text-secondary px-1" title="Audit"></a>
+            <a href="#" class="far fa-edit btn btn-sm nav-link btn-link text-warning px-1" title="Edit"></a>
+
+            @if(user.isActive)
+            {
+              <a href="#" class="fas fa-user-minus btn btn-sm nav-link btn-link text-black px-1" title="Inactive"></a>
+            }
+            else{
+              <a href="#" class="fas fa-user-plus btn btn-sm nav-link btn-link text-success px-1" title="Active"></a>
+            }
+            
+            
+            <a href="#" class="fas fa-user-times btn btn-sm nav-link btn-link text-danger px-1" title="Delete"></a>
+            
+          }
+        </td>
+      </tr>;
+      }
+    }
+  </tbody>
+</table>
+
+</div>

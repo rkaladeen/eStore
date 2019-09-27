@@ -38,3 +38,7 @@ C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\eStore.csproj.CopyC
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\User\_ChangePassword.g.cshtml.cs
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\User\_PaymentOptions.g.cshtml.cs
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\User\_ProfileSetting.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Search.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Admin.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Admin\_ProductCategory.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Admin\_AllUsers.g.cshtml.cs

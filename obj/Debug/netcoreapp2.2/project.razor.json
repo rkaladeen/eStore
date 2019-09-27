@@ -3011,8 +3011,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Shared\\_Search.cshtml",
+      "TargetPath": "Views\\Shared\\_Search.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\LogIn.cshtml",
       "TargetPath": "Views\\Shared\\LogIn.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Admin\\_ProductCategory.cshtml",
+      "TargetPath": "Views\\Admin\\_ProductCategory.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3036,8 +3046,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Admin\\Admin.cshtml",
+      "TargetPath": "Views\\Admin\\Admin.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\User\\_PaymentOptions.cshtml",
       "TargetPath": "Views\\User\\_PaymentOptions.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Admin\\_AllUsers.cshtml",
+      "TargetPath": "Views\\Admin\\_AllUsers.cshtml",
       "FileKind": "mvc"
     },
     {
