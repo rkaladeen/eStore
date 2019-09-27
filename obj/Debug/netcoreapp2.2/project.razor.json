@@ -2966,6 +2966,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\User\\_ProfileSetting.cshtml",
+      "TargetPath": "Views\\User\\_ProfileSetting.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Product\\Bids.cshtml",
       "TargetPath": "Views\\Product\\Bids.cshtml",
       "FileKind": "mvc"
@@ -2973,6 +2978,11 @@
     {
       "FilePath": "Views\\Product\\Sell.cshtml",
       "TargetPath": "Views\\Product\\Sell.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\User\\_ChangePassword.cshtml",
+      "TargetPath": "Views\\User\\_ChangePassword.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3023,6 +3033,11 @@
     {
       "FilePath": "Views\\Product\\Orders.cshtml",
       "TargetPath": "Views\\Product\\Orders.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\User\\_PaymentOptions.cshtml",
+      "TargetPath": "Views\\User\\_PaymentOptions.cshtml",
       "FileKind": "mvc"
     },
     {

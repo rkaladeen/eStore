@@ -1,44 +1,47 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using eStore.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using eStore.Models;
 
 namespace eStore.Controllers
 {
   public class ProductController : Controller
   {
-    private MyContext dbContext;
-    public ProductController(MyContext context)
+    private readonly IHostingEnvironment hostingEnvironment;
+    private readonly MyContext dbContext;
+    public ProductController(MyContext dbContext, IHostingEnvironment hostingEnvironment)
     {
-      dbContext = context;
+      this.dbContext = dbContext;
+      this.hostingEnvironment = hostingEnvironment;
     }
 
     [HttpPost("/NewProduct")]
-    public IActionResult NewProduct(Product product)
+    public IActionResult NewProduct(ProductViewModel model)
     {
       if(ModelState.IsValid)
       {
-        dbContext.Add(product);
-        dbContext.SaveChanges();
-      }
-      return Redirect("/");
-    }
-
-    public void UploadImages(List<ProductImage> images)
-    {
-      if(ModelState.IsValid)
-      {
-        foreach(var image in images)
+        string uniqueFileName = null;
+        if (model.Image != null)
         {
-          dbContext.Add(image);
-          dbContext.SaveChanges();
+          string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+          uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
+          string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+          model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
         }
+        Product NewProduct = model.newProduct;
+        NewProduct.ImagePath = uniqueFileName;
+
+        dbContext.Products.Add(NewProduct);
+        dbContext.SaveChanges();
+        return Redirect("/Store");
       }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.AllCategories = dbContext.Categories.ToList();
+      return View("Sell");
     }
 
     [HttpGet("/Store")]
@@ -50,6 +53,7 @@ namespace eStore.Controllers
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.AllProducts = dbContext.Products.ToList();
       return View();
     }
 

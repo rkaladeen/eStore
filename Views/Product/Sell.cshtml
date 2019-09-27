@@ -9,59 +9,76 @@
 }
 </style>
 
-@model Product
+@model ProductViewModel
 
 <div class="container mt-3">
-  <form asp-controller="Product" asp-action="NewProduct UploadImages" method="POST">
+  <form enctype="multipart/form-data" asp-controller="Product" asp-action="NewProduct" method="POST">
 
-  <input type="hidden" asp-for="SellerId" value="@ViewBag.UserId">
+  <input type="hidden" asp-for="newProduct.SellerId" value="@ViewBag.UserId">
 
-  <div class="jumbotron border mb-0">
+  <div class="jumbotron shadow border mb-0">
     <div class="form-group">
-      <label asp-for="Title"></label>
-      <input class="form-control" type="text" asp-for="Title"/>
-      <span class="invalid-feedback d-block" asp-validation-for="Title"></span>
+      <label asp-for="newProduct.Title"></label>
+      <input class="form-control" type="text" asp-for="newProduct.Title"/>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.Title"></span>
     </div>
   </div>
 
-  <div class="jumbotron border mb-0">
-    <div class="form-group" id="imageFields">
-      <label>Images</label>
-      <input class="form-control" type="text" asp-for="ImageURLs"/>
-    </div>
-    <button class="btn btn-outline-primary btn-sm" onclick="addImage()">Add More Images</button>
+  <div class="jumbotron shadow border mb-0">
+    
+      <div class="row">
+        <div class="col-md-4 mx-auto">
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile" asp-for="Image">
+              <label class="custom-file-label text-truncate" for="inputGroupFile" aria-describedby="inputGroupFileAddon">Upload image</label>
+              <span class="invalid-feedback d-block" asp-validation-for="Image"></span>
+            </div>
+          </div>
+          <div class="border text-center p-3">
+            <img src="//placehold.it/140?text=IMAGE" class="img-fluid" id="preview"/>
+          </div>
+        </div>
+      </div>
+    
   </div>
 
-  <div class="jumbotron border mb-0">
+  <div class="jumbotron shadow border mb-0">
 
     <div class="form-group">
       <label>Details</label>
-      <div class="d-flex justify-content-around">
-        <select class="custom-select col-sm-3" type="text" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.AllCategories,"CategoryId","Name"))">
+      <div class="d-flex justify-content-around mb-2">
+        <select class="custom-select col-sm-3" type="text" asp-for="newProduct.CategoryId" asp-items="@(new SelectList(ViewBag.AllCategories,"Id","Name"))">
           <option>Choose Category ...</option>
         </select>
         
-        <select class="custom-select col-sm-3" asp-for="Condition">
+        <select class="custom-select col-sm-3" asp-for="newProduct.Condition">
           <option value="">Specify Condition ...</option>        
           <option>New</option>
           <option>Used</option>
         </select>
       </div>
       <div class="d-flex justify-content-around">
-        <input class="form-control col-sm-3" type="text" asp-for="Model" placeholder="Model"/>
-        <input class="form-control col-sm-3" type="text" asp-for="Brand" placeholder="Brand"/>
+        <input class="form-control col-sm-3" type="text" asp-for="newProduct.Model" placeholder="Model"/>
+        <input class="form-control col-sm-3" type="text" asp-for="newProduct.Brand" placeholder="Brand"/>
       </div>
+
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.CategoryId"></span>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.Condition"></span>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.Model"></span>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.Brand"></span>
     </div>
   </div>
 
-  <div class="jumbotron border">
+  <div class="jumbotron shadow border">
     <div class="form-group">
-      <label asp-for="Description"></label>
-      <textarea class="form-control" rows="4" asp-for="Description"></textarea>
+      <label asp-for="newProduct.Description"></label>
+      <textarea class="form-control" rows="4" asp-for="newProduct.Description"></textarea>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.Description"></span>
     </div>
   </div>
 
-  <div class="jumbotron border">
+  <div class="jumbotron shadow border">
     <h5>Pricing</h5>
     <div class="form-row">
 
@@ -71,18 +88,18 @@
           <label class="custom-control-label" for="AuctionSwitch">Start Auction</label>
         </div>
 
-        <label asp-for="BidStartPrice"></label>
+        <label asp-for="newProduct.BidStartPrice"></label>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">$</span>
             <span class="input-group-text">0.00</span>
           </div>
-          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="BidStartPrice">
+          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="newProduct.BidStartPrice">
         </div>
 
-        <label asp-for="AuctionDuration"></label>
-        <select class="custom-select" asp-for="AuctionDuration">
+        <label asp-for="newProduct.AuctionDuration"></label>
+        <select class="custom-select" asp-for="newProduct.AuctionDuration">
           <option value="1">1 Day</option>
           <option value="3">3 Days</option>
           <option value="5">5 Days</option>
@@ -97,18 +114,18 @@
           <label class="custom-control-label" for="FixedSwitch">Fixed Pricing</label>
         </div>
 
-        <label asp-for="Price"></label>
+        <label asp-for="newProduct.Price"></label>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">$</span>
             <span class="input-group-text">0.00</span>
           </div>
-          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="Price">
+          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="newProduct.Price">
         </div>
 
-        <label asp-for="SaleDuration"></label>
-        <select class="custom-select" asp-for="SaleDuration">
+        <label asp-for="newProduct.SaleDuration"></label>
+        <select class="custom-select" asp-for="newProduct.SaleDuration">
           <option value="7">7 Days</option>
           <option value="10">10 Days</option>
           <option value="15">15 Days</option>
@@ -116,11 +133,14 @@
           <option value="30" selected>30 Days</option>
         </select>
       </div><!--End of Second Col-->
-
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.BidStartPrice"></span>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.AuctionDuration"></span>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.Price"></span>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.SaleDuration"></span>
     </div>
   </div>
 
-  <button class="btn btn-primary float-right" type="subit">List Item</button>
+  <button class="btn btn-primary float-right shadow" type="submit">List Item</button>
 
 </form>
 </div>
@@ -128,11 +148,25 @@
 @section Scripts
 {
   <script>
-    function addImage(){
-      $('#imageFields').append('<input class="form-control" type="text" asp-for="ImageURLs"/>');
-    }
-
-
+    $(document).ready(function(){
+      // input plugin
+      //bsCustomFileInput.init();
+      $('.custom-file-input').on('change', function() { 
+        let fileName = $(this).val().split('\\').pop(); 
+        $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+      });
+      // get file and preview image
+      $("#inputGroupFile").on('change',function(){
+        var input = $(this)[0];
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#preview').attr('src', e.target.result).fadeIn('slow');
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      });
+    });
 
   </script>
 }

@@ -1,18 +1,7 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eStore.Models 
 {
-  public class ProductImage : BaseModel
-  {
-    [Key]
-    public int ImageId {get; set;}
-    public string ImageURL { get; set; }
-    public int ProductId { get; set; }
-    public Product product { get; set; }
-  }
-
   public class Product : BaseModel
   {
     [Key]
@@ -26,11 +15,7 @@ namespace eStore.Models
     [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]
     public string Title {get; set;}
 
-    public List<ProductImage> ImageURLs { get; set; }
-    public Product()
-    {
-      ImageURLs = new List<ProductImage>();
-    }
+    public string ImagePath { get; set; }
 
     public int CategoryId {get; set;}
     public ProductCategory Category {get; set;}
