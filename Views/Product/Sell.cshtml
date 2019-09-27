@@ -2,13 +2,7 @@
   ViewData["Title"] = "Sell";
 }
 
-<style>
-.jumbotron{
-  border-radius: 0;
-  padding: .75rem;
-}
-</style>
-
+<link rel="stylesheet" href="~/css/sell.css" />
 @model ProductViewModel
 
 <div class="container mt-3">
@@ -52,15 +46,17 @@
           <option>Choose Category ...</option>
         </select>
         
+        <input class="form-control col-sm-3" type="text" asp-for="newProduct.Brand" placeholder="Brand"/>
+        
+      </div>
+      <div class="d-flex justify-content-around">
         <select class="custom-select col-sm-3" asp-for="newProduct.Condition">
           <option value="">Specify Condition ...</option>        
           <option>New</option>
           <option>Used</option>
         </select>
-      </div>
-      <div class="d-flex justify-content-around">
         <input class="form-control col-sm-3" type="text" asp-for="newProduct.Model" placeholder="Model"/>
-        <input class="form-control col-sm-3" type="text" asp-for="newProduct.Brand" placeholder="Brand"/>
+        
       </div>
 
       <span class="invalid-feedback d-block" asp-validation-for="newProduct.CategoryId"></span>
@@ -78,44 +74,19 @@
     </div>
   </div>
 
-  <div class="jumbotron shadow border">
-    <h5>Pricing</h5>
-    <div class="form-row">
 
-      <div class="col-sm-6">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="AuctionSwitch">
-          <label class="custom-control-label" for="AuctionSwitch">Start Auction</label>
-        </div>
+  <div class="row">
+    <div class="col-md-6" >
+      <div class="jumbotron shadow border">
+      <h5>Standard Pricing</h5>
 
-        <label asp-for="newProduct.BidStartPrice"></label>
+      <div class="custom-control custom-switch">
+        <input checked data-toggle="collapse" data-target="#PriceGroup, #AuctionGroup" aria-expanded="true" aria-controls="PriceGroup" type="checkbox" class="custom-control-input" id="FixedSwitch" asp-for="newProduct.isSale">
+        <label class="custom-control-label" for="FixedSwitch"></label>
+      </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
-            <span class="input-group-text">0.00</span>
-          </div>
-          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="newProduct.BidStartPrice">
-        </div>
-
-        <label asp-for="newProduct.AuctionDuration"></label>
-        <select class="custom-select" asp-for="newProduct.AuctionDuration">
-          <option value="1">1 Day</option>
-          <option value="3">3 Days</option>
-          <option value="5">5 Days</option>
-          <option value="7" selected>7 Days</option>
-          <option value="10">10 Days</option>
-        </select>
-      </div><!--End of First Col-->
-
-      <div class="col-sm-6">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="FixedSwitch">
-          <label class="custom-control-label" for="FixedSwitch">Fixed Pricing</label>
-        </div>
-
+      <div class="collapse show" id="PriceGroup">
         <label asp-for="newProduct.Price"></label>
-
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">$</span>
@@ -132,13 +103,48 @@
           <option value="20">20 Days</option>
           <option value="30" selected>30 Days</option>
         </select>
-      </div><!--End of Second Col-->
-      <span class="invalid-feedback d-block" asp-validation-for="newProduct.BidStartPrice"></span>
-      <span class="invalid-feedback d-block" asp-validation-for="newProduct.AuctionDuration"></span>
+      </div><!--End of Regular Price Collapse-->
+      
       <span class="invalid-feedback d-block" asp-validation-for="newProduct.Price"></span>
       <span class="invalid-feedback d-block" asp-validation-for="newProduct.SaleDuration"></span>
-    </div>
+      </div>
+    </div><!-- End of First Col -->
+
+    <div class="col-md-6">
+      <div class="jumbotron shadow border">
+      <h5>Start an Auction</h5>
+      <div class="custom-control custom-switch">
+        <input data-toggle="collapse" data-target="#PriceGroup, #AuctionGroup" aria-expanded="false" aria-controls="AuctionGroup" type="checkbox" class="custom-control-input" id="AuctionSwitch" asp-for="newProduct.isAuction">
+        <label class="custom-control-label" for="AuctionSwitch"></label>
+      </div>
+
+      <div class="collapse" id="AuctionGroup">
+        <label asp-for="newProduct.BidStartPrice"></label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+            <span class="input-group-text">0.00</span>
+          </div>
+          <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" asp-for="newProduct.BidStartPrice">
+        </div>
+
+        <label asp-for="newProduct.AuctionDuration"></label>
+        <select class="custom-select" asp-for="newProduct.AuctionDuration">
+          <option value="1">1 Day</option>
+          <option value="3">3 Days</option>
+          <option value="5">5 Days</option>
+          <option value="7" selected>7 Days</option>
+          <option value="10">10 Days</option>
+        </select>
+      </div><!--End of Collapse-->
+
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.BidStartPrice"></span>
+      <span class="invalid-feedback d-block" asp-validation-for="newProduct.AuctionDuration"></span>
+      </div>
+    </div><!-- End of Second Col -->
+
   </div>
+
 
   <button class="btn btn-primary float-right shadow" type="submit">List Item</button>
 
@@ -165,6 +171,15 @@
           }
           reader.readAsDataURL(input.files[0]);
         }
+      });
+    });
+
+    $(function() {
+      $('#AuctionSwitch').on('change', function() {
+        $('#FixedSwitch').prop('checked', !this.checked);
+      });
+      $('#FixedSwitch').on('change', function() {
+        $('#AuctionSwitch').prop('checked', !this.checked);
       });
     });
 

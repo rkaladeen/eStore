@@ -27,6 +27,7 @@ namespace eStore.Controllers
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.AllCategories = dbContext.Categories.ToList();
       return View("Index");
     }
 

@@ -2,25 +2,14 @@
   ViewData["Title"] = "Store";
 }
 
-<style>
-  html, body {
-    background-color: #f8f9fa;
-  }
-
-  textarea {
-    resize: none;
-  }
-</style>
+<link rel="stylesheet" href="~/css/store.css" />
 
 <div class="bg-primary py-4">
   <form class="col-11 col-md-6 mx-auto shadow-lg px-0 rounded">
     <div class="input-group">
-      <!-- <select class="input-group-append border bg-dark text-light rounded">
-        <option selected>All</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select> -->
+      <select class="input-group-append border" asp-items="@(new SelectList(ViewBag.AllCategories,"Id","Name"))">
+        <option value="0">All</option>
+      </select>
       <textarea class="form-control form-control-lg" id="validationDefaultUsername" rows="1" placeholder="Search"></textarea>
       <div class="input-group-append">
         <button class="btn btn-warning" type="button"><i class="fas fa-search"></i></button>
@@ -29,28 +18,42 @@
     </div>
   </form>
 </div>
-<div class="container">
+<div class="">
   <div class="row mx-0 mt-3">
-    <div class="col-md-3">
+    <div class="col-md-2">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active">
+          Cras justo odio
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+        <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">Vestibulum at eros</a>
+      </div>
       
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10 card-columns">
     @{
       foreach(Product Product in ViewBag.AllProducts)
       {
         var photoPath = "~/images/" + (Product.ImagePath ?? "noimage.png");
-        <div class="card mb-3 w-100"\>
-          <div class="row no-gutters">
-            <div class="col-md-3">
-              <img src="@photoPath" asp-append-version="true" class="card-img" alt="...">
-            </div>
-            <div class="col-md-9">
-              <div class="card-body">
-                <h5 class="card-title">@Product.Title</h5>
-                <p class="card-text">@Product.Description</p>
-                <p class="card-text"><small class="text-muted">@Product.TimeDiffUpdate()</small></p>
-              </div>
-            </div>
+        <div class="card">
+          <img src="@photoPath" asp-append-version="true" class="card-img-top" alt="@photoPath">
+          <div class="card-body">
+            <h5 class="card-title">@Product.Title</h5>
+            
+            @if(Product.isSale)
+            {
+              <p class="card-text">$@Product.Price</p>
+              <a href="#" class="btn btn-success btn-sm">Add to Cart</a>
+            }
+            else if(Product.isAuction)
+            {
+              <p class="card-text">$@Product.BidStartPrice</p>
+              <a href="#" class="btn btn-info btn-sm">Bid Now</a>
+            }
+            
+            <p class="card-text"><small class="text-muted"></small></p>
           </div>
         </div>;
       }
