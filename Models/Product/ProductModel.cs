@@ -10,6 +10,9 @@ namespace eStore.Models
     [Required]
     public int SellerId {get; set;}
     public User Seller {get; set;}
+
+    [Required] 
+    public string Status {get; set;}
     
     [Required(ErrorMessage="{0} is required")]
     [StringLength(100, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 3)]

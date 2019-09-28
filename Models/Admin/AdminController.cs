@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using eStore.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using eStore.Models;
 
 namespace eStore.Controllers
 {
@@ -51,19 +47,22 @@ namespace eStore.Controllers
           ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
           ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
           ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+          ViewBag.AllCategories = dbContext.Categories.ToList();
+          ViewBag.AllUsers = dbContext.Users.ToList();
           return View("Admin");
         }
 
         dbContext.Categories.Add(model);
         dbContext.SaveChanges();
-        
-        RedirectToAction("Admin");
+        ViewBag.UserName = HttpContext.Session.GetString("UserName");
+        ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+        ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+        ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+        ViewBag.AllCategories = dbContext.Categories.ToList();
+        ViewBag.AllUsers = dbContext.Users.ToList();
+        return View("Admin");
       }
-      ViewBag.UserName = HttpContext.Session.GetString("UserName");
-      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
-      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
-      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
-      return View("Admin");
+      return RedirectToAction("Admin");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

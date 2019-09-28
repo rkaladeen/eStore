@@ -33,7 +33,7 @@
             @if(Product.isSale)
             {
               <p class="card-text">$@Product.Price</p>
-              <a href="#" class="btn btn-success btn-sm">Add to Cart</a>
+              <a asp-action="AddtoCart" asp-route-id="@Product.Id" class="btn btn-success btn-sm">Add to Cart</a>
             }
             else if(Product.isAuction)
             {

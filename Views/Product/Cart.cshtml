@@ -1,0 +1,36 @@
+@{
+  ViewData["Title"] = "Cart";
+}
+
+<div class="container">
+  <h1 class="display-4">Cart</h1>
+  <div class="jumbotron bg-light">
+
+    <ul class="list-group">
+      @{
+        foreach(var item in ViewBag.UserCart.Products)
+        {
+        var photoPath = "~/images/" + (item.ImagePath ?? "noimage.png");
+        <li class="list-group-item">
+          
+            <div class="row no-gutters">
+              <div class="col-2">
+                <img src="@photoPath" asp-append-version="true" class="card-img" alt="@photoPath">
+              </div>
+              <div class="col-10">
+                <div class="card-body">
+                  <h5 class="card-title text-primary">@item.Title</h5>
+                  <p class="card-text text-danger">$@item.Price</p>
+                  <a asp-action="RemoveFromCart" asp-route-id="@item.Id" class="btn btn-link btn-sm pl-0">Delete</a>
+                </div>
+              </div>
+            </div>
+          
+
+        </li>;
+        }
+      }
+    </ul>
+
+  </div>
+</div>

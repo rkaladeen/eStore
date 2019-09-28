@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using eStore.Models;
 
 namespace eStore.Controllers
@@ -34,7 +35,7 @@ namespace eStore.Controllers
         }
         Product NewProduct = model.newProduct;
         NewProduct.ImagePath = uniqueFileName;
-
+        NewProduct.Status = "Available";
         dbContext.Products.Add(NewProduct);
         dbContext.SaveChanges();
         return Redirect("/Store");
@@ -58,8 +59,11 @@ namespace eStore.Controllers
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
       ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
       ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
-      ViewBag.AllProducts = dbContext.Products.ToList();
+      ViewBag.AllProducts = dbContext.Products
+                              .ToList()
+                              .Where(i => i.Status == "Available");
       ViewBag.AllCategories = dbContext.Categories.ToList();
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
       return View();
     }
 
@@ -75,6 +79,7 @@ namespace eStore.Controllers
       ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
       ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
       ViewBag.AllCategories = dbContext.Categories.ToList();
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
       return View();
     }
 
@@ -89,6 +94,7 @@ namespace eStore.Controllers
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
       ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
       ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
       return View();
     }
 
@@ -103,7 +109,96 @@ namespace eStore.Controllers
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
       ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
       ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
       return View();
+    }
+
+    public IActionResult Cart()
+    {
+      if (HttpContext.Session.GetString("UserName") == null)
+      {
+        return Redirect("/LogIn");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+
+      ViewBag.UserCart = dbContext.Carts
+        .Include(p => p.Products)
+        .FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("UserId"));
+      return View();
+    }
+
+    public IActionResult AddtoCart(int id)
+    {
+      Product itemToAdd = dbContext.Products.FirstOrDefault(p => p.Id == id);
+      if(itemToAdd.Status != "Available")
+      {
+        ViewBag.UserName = HttpContext.Session.GetString("UserName");
+        ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+        ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+        ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+        ViewBag.AllProducts = dbContext.Products
+                              .ToList()
+                              .Where(i => i.Status == "Available");
+        ViewBag.AllCategories = dbContext.Categories.ToList();
+        ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+        return View("Store");
+      }
+      int? UserId = HttpContext.Session.GetInt32("UserId");
+      Cart userCart = dbContext.Carts
+            .Include(p => p.Products)
+            .FirstOrDefault(u => u.UserId == UserId && u.isCheckedOut == false);
+      if(userCart == null)
+      {
+        Cart newCart = new Cart()
+        {
+          UserId = (int)UserId
+        };
+        newCart.Products.Add(itemToAdd);
+        dbContext.Carts.Add(newCart);
+        dbContext.SaveChanges();
+      }
+      else
+      {
+        userCart.Products.Add(itemToAdd);
+        dbContext.SaveChanges();
+      }
+      itemToAdd.Status = "inCart";
+      dbContext.SaveChanges();
+
+
+      HttpContext.Session.SetInt32("Cart", userCart.Products.Count);
+      return RedirectToAction("Store");
+    }
+
+    public IActionResult RemoveFromCart(int id)
+    {
+      Product itemToRemove = dbContext.Products.FirstOrDefault(p => p.Id == id);
+      if(itemToRemove.Status != "inCart")
+      {
+        ViewBag.UserName = HttpContext.Session.GetString("UserName");
+        ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+        ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+        ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+        ViewBag.AllProducts = dbContext.Products
+                              .ToList()
+                              .Where(i => i.Status == "Available");
+        ViewBag.AllCategories = dbContext.Categories.ToList();
+        ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+        return View("Store");
+      }
+      int? UserId = HttpContext.Session.GetInt32("UserId");
+      
+      Cart userCart = dbContext.Carts.FirstOrDefault(c => c.UserId == UserId && c.isCheckedOut == false);
+      userCart.Products.Remove(itemToRemove);
+      dbContext.SaveChanges();
+      itemToRemove.Status = "Available";
+      dbContext.SaveChanges();
+      HttpContext.Session.SetInt32("Cart", userCart.Products.Count);
+      return RedirectToAction("Store");
     }
 
 // public IActionResult Bid(int id)

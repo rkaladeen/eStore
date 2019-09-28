@@ -30,6 +30,8 @@ namespace eStore.Controllers
       ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
       ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
       ViewBag.AllCategories = dbContext.Categories.ToList();
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+
       return View("Index");
     }
 

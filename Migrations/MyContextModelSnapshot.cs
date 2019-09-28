@@ -70,6 +70,9 @@ namespace eStore.Migrations
 
                     b.Property<int>("SellerId");
 
+                    b.Property<string>("Status")
+                        .IsRequired();
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);

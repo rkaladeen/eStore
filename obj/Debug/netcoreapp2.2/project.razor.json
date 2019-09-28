@@ -3066,6 +3066,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Product\\Cart.cshtml",
+      "TargetPath": "Views\\Product\\Cart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Product\\Store.cshtml",
       "TargetPath": "Views\\Product\\Store.cshtml",
       "FileKind": "mvc"

@@ -9,6 +9,8 @@
   <form enctype="multipart/form-data" asp-controller="Product" asp-action="NewProduct" method="POST">
 
   <input type="hidden" asp-for="newProduct.SellerId" value="@ViewBag.UserId">
+  <input type="hidden" asp-for="newProduct.Status" value="Available">
+
 
   <div class="jumbotron shadow border mb-0">
     <div class="form-group">

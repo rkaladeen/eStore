@@ -15,5 +15,9 @@ namespace eStore.Models
     public User Shopper {get; set;}
 
     public List<Product> Products {get; set;}
+    public Cart()
+    {
+      Products = new List<Product>();
+    }
   }
 }

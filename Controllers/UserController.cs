@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using eStore.Models;
 
 namespace eStore.Controllers
@@ -46,6 +47,7 @@ namespace eStore.Controllers
       int? id = HttpContext.Session.GetInt32("UserId");
       User oneUser = dbContext.Users.FirstOrDefault(a => a.UserId == id);
       ViewBag.CurrentUser = oneUser;
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
       return View();
     }
 
@@ -106,6 +108,10 @@ namespace eStore.Controllers
       if(ModelState.IsValid)
       {
         var userInDb = dbContext.Users.FirstOrDefault(u => u.Email == userSubmission.Email);
+        Cart userCart = dbContext.Carts
+            .Include(p => p.Products)
+            .FirstOrDefault(u => u.UserId == userInDb.UserId && u.isCheckedOut == false);
+
         if(userInDb == null)
         {
           ModelState.AddModelError("Password", "Invalid Email/Password");
@@ -130,6 +136,9 @@ namespace eStore.Controllers
           }
           HttpContext.Session.SetInt32("isAdmin", Admin);
           HttpContext.Session.SetString("Avatar", userInDb.AvatarPath);
+          HttpContext.Session.SetInt32("Cart", userCart.Products.Count);
+          // HttpContext.Session.SetInt32("Messages", );
+
 
           return Redirect("/");
         }

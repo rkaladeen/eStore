@@ -65,7 +65,7 @@
               <a class="nav-link text-light" asp-area="" asp-controller="" asp-action=""><i class="far fa-comments mr-1"></i><span class="badge badge-warning badge-pill">0</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" asp-area="" asp-controller="" asp-action=""><i class="fas fa-shopping-cart mr-1"></i><span class="badge badge-success badge-pill">0</span></a>
+              <a class="nav-link text-light" asp-area="" asp-controller="Product" asp-action="Cart"><i class="fas fa-shopping-cart mr-1"></i><span class="badge badge-success badge-pill">@ViewBag.Cart</span></a>
             </li>
           </ul>  
         </div>

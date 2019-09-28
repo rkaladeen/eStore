@@ -9,8 +9,8 @@ using eStore.Models;
 namespace eStore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20190927203224_updatedproductcategory")]
-    partial class updatedproductcategory
+    [Migration("20190927231343_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -71,6 +71,9 @@ namespace eStore.Migrations
                     b.Property<string>("SaleDuration");
 
                     b.Property<int>("SellerId");
+
+                    b.Property<string>("Status")
+                        .IsRequired();
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -135,6 +138,8 @@ namespace eStore.Migrations
                         .IsRequired();
 
                     b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<bool>("isActive");
 
                     b.Property<bool>("isAdmin");
 
