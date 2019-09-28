@@ -201,20 +201,18 @@ namespace eStore.Controllers
       return RedirectToAction("Store");
     }
 
-// public IActionResult Bid(int id)
-    // {
-    //   if (HttpContext.Session.GetString("UserName") == null ){
-    //     return RedirectToAction("LogIn", "User");
-    //   }
-    //   Bid NewBid = new Bid()
-    //   {
-    //     PostId = id,
-    //     UserId = (int)HttpContext.Session.GetInt32("UserId")
-    //   };
-    //   dbContext.Bids.Add(NewBid);
-    //   dbContext.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
+    public IActionResult Bid(int id)
+    {
+      Bid NewBid = new Bid()
+      {
+        Id = id,
+        UserId = (int)HttpContext.Session.GetInt32("UserId")
+      };
+      dbContext.Bids.Add(NewBid);
+      dbContext.SaveChanges();
+      return RedirectToAction("Store");
+    //Need to add price to bid model
+    }
 
     // public IActionResult cancelBid(int id)
     // {

@@ -9,6 +9,7 @@ namespace eStore.Models
     public DbSet<ProductCategory> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Cart> Carts { get; set; }
+    public DbSet<Bid> Bids { get; set; }
 
   }
 
