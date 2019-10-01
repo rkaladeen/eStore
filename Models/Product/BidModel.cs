@@ -15,7 +15,8 @@ namespace eStore.Models
     public int ProductId {get; set;}
     public Product Products {get; set;}
 
-    [Required]
+    [Required(ErrorMessage="Please enter a bid")]
+    [Display(Name="Bid")]
     public double BidAmount {get; set;}
   }
 }

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStore.Models;
 
 namespace eStore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20191001144757_newBidModel")]
+    partial class newBidModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace eStore.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AuctionDuration");
+                    b.Property<string>("AuctionDuration");
 
                     b.Property<double?>("BidStartPrice");
 
@@ -84,15 +86,13 @@ namespace eStore.Migrations
                         .IsRequired()
                         .HasMaxLength(1000);
 
-                    b.Property<DateTime>("EndDate");
-
                     b.Property<string>("ImagePath");
 
                     b.Property<string>("Model");
 
                     b.Property<double?>("Price");
 
-                    b.Property<int>("SaleDuration");
+                    b.Property<string>("SaleDuration");
 
                     b.Property<int>("SellerId");
 

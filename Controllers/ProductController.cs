@@ -32,6 +32,15 @@ namespace eStore.Controllers
           model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
         }
         Product NewProduct = model.newProduct;
+        if(NewProduct.isAuction){
+          Bid InitialBid = new Bid(){
+            UserId = (int)NewProduct.SellerId,
+            ProductId = NewProduct.Id,
+            BidAmount = (double)NewProduct.BidStartPrice
+          };
+          dbContext.Bids.Add(InitialBid);
+          dbContext.SaveChanges();
+        }
         NewProduct.ImagePath = uniqueFileName;
         NewProduct.Status = "Available";
         dbContext.Products.Add(NewProduct);
@@ -195,23 +204,6 @@ namespace eStore.Controllers
       return RedirectToAction("Store");
     }
 
-    public IActionResult Bid(Bid model)
-    {
-      if(ModelState.IsValid)
-      {
-        dbContext.Bids.Add(model);
-        dbContext.SaveChanges();
-        return RedirectToAction("Store");
-      }
-      ViewBag.UserName = HttpContext.Session.GetString("UserName");
-      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
-      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
-      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
-      ViewBag.AllCategories = dbContext.Categories.ToList();
-      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
-      return View("Details");
-    }
-
     public IActionResult Details(int id)
     {
       if (HttpContext.Session.GetString("UserName") == null)
@@ -224,8 +216,57 @@ namespace eStore.Controllers
       ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
       ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
       ViewBag.AllCategories = dbContext.Categories.ToList();
-      ViewBag.Product = dbContext.Products.FirstOrDefault(p => p.Id == id);
+
+      var Product = dbContext.Products.Include(s => s.Seller)
+                                      .Include(c => c.Category)
+                                      .FirstOrDefault(p => p.Id == id);
+      ViewBag.Product = Product;
+
+      var HighestBid = dbContext.Bids.OrderByDescending(b => b.BidAmount).Include(u => u.Bidder).FirstOrDefault();
+      if(HighestBid == null)
+      {
+        ViewBag.HighestBid = Product.BidStartPrice;
+      }
+      else
+      {
+        ViewBag.HighestBid = HighestBid.BidAmount;
+        ViewBag.HighestBidder = HighestBid;
+      }
       return View();
+    }
+
+    public IActionResult Bid(Bid model)
+    {
+      var HighestBid = dbContext.Bids.OrderByDescending(b => b.BidAmount).FirstOrDefault();
+      if(ModelState.IsValid && model.BidAmount > HighestBid.BidAmount)
+      {
+        dbContext.Bids.Add(model);
+        dbContext.SaveChanges();
+        return RedirectToAction("Store");
+      }
+      if(model.BidAmount <= HighestBid.BidAmount)
+      {
+        ModelState.AddModelError("BidAmount", "Please bid $1.00 higher than current bid");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+      ViewBag.AllCategories = dbContext.Categories.ToList();
+      var Product = dbContext.Products.Include(s => s.Seller)
+                                      .Include(c => c.Category)
+                                      .FirstOrDefault(p => p.Id == model.ProductId);
+      ViewBag.Product = Product;
+      if(HighestBid == null)
+      {
+        ViewBag.HighestBid = Product.BidStartPrice;
+      }
+      else
+      {
+        ViewBag.HighestBid = HighestBid.BidAmount;
+      }
+      return View("Details");
     }
 
     // public IActionResult cancelBid(int id)

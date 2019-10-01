@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace eStore.Models 
@@ -36,14 +37,26 @@ namespace eStore.Models
     public double? BidStartPrice { get; set; }
     [Range(1, 10)]
     [Display(Name = "Auction Duration")]
-    public string AuctionDuration { get; set; }
+    public int AuctionDuration { get; set; }
 
     public bool isSale { get; set; }
     [Range(1, 10000000000000)]
     public double? Price { get; set; }
     [Range(1, 30)]
     [Display(Name = "Sale Duration")]
-    public string SaleDuration { get; set; }
+    public int SaleDuration { get; set; }
+
+    public DateTime EndDate { get; set; }
+    public Product()
+    {
+      if(isAuction)
+      {
+        EndDate = CreatedAt.AddDays(AuctionDuration);
+      }else if(isSale)
+      {
+        EndDate = CreatedAt.AddDays(SaleDuration);
+      }
+    }
   }
     
 }
