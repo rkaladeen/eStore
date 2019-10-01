@@ -18,12 +18,11 @@ namespace eStore.Controllers
       dbContext = context;
     } 
     
-    [HttpGet("")]
     public IActionResult Index()
     {
       if(HttpContext.Session.GetString("UserName") == null)
       {
-        return Redirect("/LogIn");
+        return RedirectToAction("LogIn", "User");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");

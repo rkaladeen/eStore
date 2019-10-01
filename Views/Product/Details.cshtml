@@ -1,0 +1,55 @@
+@{
+  ViewData["Title"] = "Details";
+  var Item = ViewBag.Product;
+  var photoPath = "~/images/" + (Item.ImagePath ?? "noimage.png");
+}
+<link rel="stylesheet" href="~/css/store.css" />
+
+<partial name="_Search"></partial>
+
+<div class="px-3">
+<div class="row mt-4 mx-0">
+
+  <div class="col-md-3 text-center pt-5 px-3">
+    <img class="" src="@photoPath" asp-append-version="true" alt="@photoPath">
+  </div>
+
+  <div class="col-md-6">
+    <h4>@Item.Title<h4>
+    <small class="d-block border-bottom mb-3">By @Item.Brand</small>
+    
+    <!-- Add Conditional Statment for Standard Pricing -->
+    <small class="text-muted">Price: 
+      <span class="text-warning d-inline">$@Item.Price</span>
+    </small>
+    
+
+    <!-- Add Conditional Statment for Bid Pricing -->
+    <small class="text-muted d-block">Starting Bid: 
+      <span class="text-warning d-inline">$@Item.BidStartPrice</span>
+    </small>
+    
+
+    <small class="text-muted">Current Bid: 
+      <span class="text-warning d-inline">$</span>
+    </small>
+    
+
+    <small class="text-muted d-block mt-4">@Item.Description</small>
+  </div>
+
+  <div class="col-md-3 jumbotron">
+    <a class="btn btn-warning btn-block" asp-controller="Product" asp-action="AddtoCart" asp-route-id="@Item.Id">Add to Cart</a>
+    
+    <form>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+      </div>
+      <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+    </div>
+    <a class="btn btn-info btn-block" asp-controller="Product" asp-action="Bid" asp-route-id="@Item.Id">Bid</a>
+    </form>
+  </div>
+</div>
+</div>

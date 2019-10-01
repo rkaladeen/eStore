@@ -14,12 +14,11 @@ namespace eStore.Controllers
       dbContext = context;
     } 
     
-    [HttpGet("Admin")]
     public IActionResult Admin()
     {
       if(HttpContext.Session.GetString("UserName") == null || HttpContext.Session.GetInt32("isAdmin") == 0)
       {
-        return Redirect("/LogIn");
+        return RedirectToAction("LogIn", "User");
       }
       else if(HttpContext.Session.GetInt32("isAdmin") == 1)
       {
@@ -27,14 +26,14 @@ namespace eStore.Controllers
         ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
         ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
         ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+        ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
         ViewBag.AllCategories = dbContext.Categories.ToList();
         ViewBag.AllUsers = dbContext.Users.ToList();
         return View("Admin");
       }
-      return Redirect("/LogIn");
+      return RedirectToAction("LogIn", "User");
     }
 
-    [HttpPost("/AddCategory")]
     [ValidateAntiForgeryToken]
     public IActionResult AddCategory(ProductCategory model)
     {
@@ -47,6 +46,7 @@ namespace eStore.Controllers
           ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
           ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
           ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+          ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
           ViewBag.AllCategories = dbContext.Categories.ToList();
           ViewBag.AllUsers = dbContext.Users.ToList();
           return View("Admin");
@@ -58,6 +58,7 @@ namespace eStore.Controllers
         ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
         ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
         ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+        ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
         ViewBag.AllCategories = dbContext.Categories.ToList();
         ViewBag.AllUsers = dbContext.Users.ToList();
         return View("Admin");

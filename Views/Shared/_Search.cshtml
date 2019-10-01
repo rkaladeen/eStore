@@ -1,7 +1,13 @@
+<style>
+  #search-dropdown {
+    border-radius: .25rem 0 0 .25rem;
+  }
+</style>
+
 <div class="bg-primary py-4">
   <form class="col-11 col-md-6 mx-auto shadow-lg px-0 rounded">
     <div class="input-group">
-      <select class="input-group-append" asp-items="@(new SelectList(ViewBag.AllCategories,"Id","Name"))">
+      <select id="search-dropdown" class="input-group-append border" asp-items="@(new SelectList(ViewBag.AllCategories,"Id","Name"))">
         <option value="0">All</option>
       </select>
       <textarea class="form-control form-control-lg" id="validationDefaultUsername" rows="1" placeholder="Search"></textarea>

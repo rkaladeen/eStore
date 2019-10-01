@@ -21,19 +21,16 @@ namespace eStore.Controllers
       this.hostingEnvironment = hostingEnvironment;
     }
 
-    [HttpGet("User/Register")]
     public IActionResult NewUser()
     {
       return View();
     }
 
-    [HttpGet("Login")]
     public IActionResult LogIn()
     {
       return View();
     }
 
-    [HttpGet("User/Account")]
     public IActionResult Account()
     {
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
@@ -51,14 +48,12 @@ namespace eStore.Controllers
       return View();
     }
 
-    [HttpGet("Logout")]
     public IActionResult LogOut()
     {
       HttpContext.Session.Clear();
       return RedirectToAction("LogIn");
     }
 
-    [HttpPost("User/Create")]
     [ValidateAntiForgeryToken]
     public IActionResult CreateUser(RegisterViewModel model)
     {
@@ -101,7 +96,6 @@ namespace eStore.Controllers
       return View("NewUser");
     }
 
-    [HttpPost("LoginPOST")]
     [ValidateAntiForgeryToken]
     public IActionResult LoginPOST(LoginUser userSubmission)
     {
@@ -138,9 +132,7 @@ namespace eStore.Controllers
           HttpContext.Session.SetString("Avatar", userInDb.AvatarPath);
           HttpContext.Session.SetInt32("Cart", userCart.Products.Count);
           // HttpContext.Session.SetInt32("Messages", );
-
-
-          return Redirect("/");
+          return RedirectToAction("Index", "Home");
         }
       }
       else 

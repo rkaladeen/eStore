@@ -43,3 +43,4 @@ C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Admin\A
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Admin\_ProductCategory.g.cshtml.cs
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Admin\_AllUsers.g.cshtml.cs
 C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Product\Cart.g.cshtml.cs
+C:\Users\rkala\Dropbox\c#.net\eStore\obj\Debug\netcoreapp2.2\Razor\Views\Product\Details.g.cshtml.cs

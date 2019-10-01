@@ -19,8 +19,6 @@ namespace eStore.Controllers
       this.hostingEnvironment = hostingEnvironment;
     }
 
-    [HttpPost("/NewProduct")]
-    [ValidateAntiForgeryToken]
     public IActionResult NewProduct(ProductViewModel model)
     {
       if(ModelState.IsValid)
@@ -38,7 +36,7 @@ namespace eStore.Controllers
         NewProduct.Status = "Available";
         dbContext.Products.Add(NewProduct);
         dbContext.SaveChanges();
-        return Redirect("/Store");
+        return RedirectToAction("Store");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -48,12 +46,11 @@ namespace eStore.Controllers
       return View("Sell");
     }
 
-    [HttpGet("/Store")]
     public IActionResult Store()
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return Redirect("/LogIn");
+        return RedirectToAction("LogIn", "User");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -67,12 +64,11 @@ namespace eStore.Controllers
       return View();
     }
 
-    [HttpGet("/Sell")]
     public IActionResult Sell()
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return Redirect("/LogIn");
+        return RedirectToAction("LogIn", "User");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -83,12 +79,11 @@ namespace eStore.Controllers
       return View();
     }
 
-    [HttpGet("/Orders")]
     public IActionResult Orders()
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return Redirect("/LogIn");
+        return RedirectToAction("LogIn", "User");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -98,12 +93,11 @@ namespace eStore.Controllers
       return View();
     }
 
-    [HttpGet("/Bids")]
     public IActionResult Bids()
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return Redirect("/LogIn");
+        return RedirectToAction("LogIn", "User");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -117,7 +111,7 @@ namespace eStore.Controllers
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return Redirect("/LogIn");
+        return RedirectToAction("LogIn", "User");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -201,17 +195,37 @@ namespace eStore.Controllers
       return RedirectToAction("Store");
     }
 
-    public IActionResult Bid(int id)
+    public IActionResult Bid(Bid model)
     {
-      Bid NewBid = new Bid()
+      if(ModelState.IsValid)
       {
-        Id = id,
-        UserId = (int)HttpContext.Session.GetInt32("UserId")
-      };
-      dbContext.Bids.Add(NewBid);
-      dbContext.SaveChanges();
-      return RedirectToAction("Store");
-    //Need to add price to bid model
+        dbContext.Bids.Add(model);
+        dbContext.SaveChanges();
+        return RedirectToAction("Store");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.AllCategories = dbContext.Categories.ToList();
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+      return View("Details");
+    }
+
+    public IActionResult Details(int id)
+    {
+      if (HttpContext.Session.GetString("UserName") == null)
+      {
+        return RedirectToAction("LogIn", "User");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+      ViewBag.AllCategories = dbContext.Categories.ToList();
+      ViewBag.Product = dbContext.Products.FirstOrDefault(p => p.Id == id);
+      return View();
     }
 
     // public IActionResult cancelBid(int id)
