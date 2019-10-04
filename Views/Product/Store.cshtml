@@ -20,16 +20,35 @@
       </div>
       
     </div>
-    <div class="col-sm-8 col-md-9 col-lg-10 card-columns">
-    @{
-      foreach(Product Product in ViewBag.AllProducts)
+
+    @foreach(Product Product in ViewBag.AllProducts)
       {
+        if(Product == null || (Product != null && Product.Id == 0))
+        {
+          <div class="col-sm-8 col-md-9 col-lg-10">
+          <div class="card text-center">
+            <div class="card-header">No Results Found</div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+          </div>
+          </div>;
+        }
+      }
+    <div class="col-sm-8 col-md-9 col-lg-10 card-columns">
+    
+      @foreach(Product Product in ViewBag.AllProducts)
+      {
+        if(Product == null || (Product != null && Product.Id == 0))
+        {
+          break;
+        }
         var photoPath = "~/images/" + (Product.ImagePath ?? "noimage.png");
         <div class="card">
           <img src="@photoPath" asp-append-version="true" class="card-img-top" alt="@photoPath">
           <div class="card-body">
             <h5 class="card-title">@Product.Title</h5>
-            
             @if(Product.isSale)
             {
               <p class="card-text">$@Product.Price</p>
@@ -41,12 +60,11 @@
               <p class="card-text">$@Product.BidStartPrice</p>
               <a asp-controller="Product" asp-action="Details" asp-route-id="@Product.Id" class="btn btn-info btn-sm">Bid Now</a>
             }
-            
             <p class="card-text"><small class="text-muted"></small></p>
           </div>
         </div>;
-      }
-    }
+      } 
+    
     </div>
   </div>
 </div>

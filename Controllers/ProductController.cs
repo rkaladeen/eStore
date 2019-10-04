@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +18,35 @@ namespace eStore.Controllers
     {
       this.dbContext = dbContext;
       this.hostingEnvironment = hostingEnvironment;
+    }
+
+    public IActionResult Search(SearchModel input)
+    {
+      if(input.SearchValue == null && input.CategoryId == 0)
+      {
+        ViewBag.AllProducts = dbContext.Products.Where(i => i.Status == "Available").DefaultIfEmpty().ToList();
+      }
+      else if(input.SearchValue != null && input.CategoryId == 0)
+      {
+        ViewBag.AllProducts = dbContext.Products.Where(p => p.Title.Contains(input.SearchValue) && p.Status == "Available").DefaultIfEmpty().ToList();
+      }
+      else if(input.SearchValue == null && input.CategoryId != 0)
+      {
+        ViewBag.AllProducts = dbContext.Products.Where(c => c.CategoryId == input.CategoryId && c.Status == "Available").DefaultIfEmpty().ToList();
+      }
+      else if(input.SearchValue != null && input.CategoryId != 0) 
+      {
+        ViewBag.AllProducts = dbContext.Products.Where(c => c.CategoryId == input.CategoryId && c.Title.Contains(input.SearchValue) && c.Status == "Available").DefaultIfEmpty().ToList();
+      }
+      Console.WriteLine(ViewBag.AllProducts);
+      
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.AllCategories = dbContext.Categories.ToList();
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+      return View("Store");
     }
 
     public IActionResult NewProduct(ProductViewModel model)
@@ -65,9 +95,7 @@ namespace eStore.Controllers
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
       ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
       ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
-      ViewBag.AllProducts = dbContext.Products
-                              .ToList()
-                              .Where(i => i.Status == "Available");
+      ViewBag.AllProducts = dbContext.Products.ToList().Where(i => i.Status == "Available");
       ViewBag.AllCategories = dbContext.Categories.ToList();
       ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
       return View();
@@ -143,16 +171,13 @@ namespace eStore.Controllers
         ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
         ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
         ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
-        ViewBag.AllProducts = dbContext.Products
-                              .ToList()
-                              .Where(i => i.Status == "Available");
+        ViewBag.AllProducts = dbContext.Products.ToList().Where(i => i.Status == "Available");
         ViewBag.AllCategories = dbContext.Categories.ToList();
         ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
         return View("Store");
       }
       int? UserId = HttpContext.Session.GetInt32("UserId");
-      Cart userCart = dbContext.Carts
-            .Include(p => p.Products)
+      Cart userCart = dbContext.Carts.Include(p => p.Products)
             .FirstOrDefault(u => u.UserId == UserId && u.isCheckedOut == false);
       if(userCart == null)
       {
@@ -186,9 +211,7 @@ namespace eStore.Controllers
         ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
         ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
         ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
-        ViewBag.AllProducts = dbContext.Products
-                              .ToList()
-                              .Where(i => i.Status == "Available");
+        ViewBag.AllProducts = dbContext.Products.ToList().Where(i => i.Status == "Available");
         ViewBag.AllCategories = dbContext.Categories.ToList();
         ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
         return View("Store");
@@ -222,7 +245,9 @@ namespace eStore.Controllers
                                       .FirstOrDefault(p => p.Id == id);
       ViewBag.Product = Product;
 
-      var HighestBid = dbContext.Bids.OrderByDescending(b => b.BidAmount).Include(u => u.Bidder).FirstOrDefault();
+      var HighestBid = dbContext.Bids.OrderByDescending(b => b.BidAmount)
+                                     .Include(u => u.Bidder)
+                                     .FirstOrDefault();
       if(HighestBid == null)
       {
         ViewBag.HighestBid = Product.BidStartPrice;
