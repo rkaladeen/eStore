@@ -2,12 +2,14 @@
 <div class="bg-primary py-4">
   <form class="col-11 col-md-6 mx-auto shadow-lg px-0 rounded" asp-controller="Product" asp-action="Search" method="POST">
     <div class="input-group">
-      <textarea class="form-control form-control-lg border-right border-top-0 border-bottom-0 border-left-0" rows="1" placeholder="Search" asp-for="SearchValue"></textarea>
-      <select class="input-group-append px-2 border-0" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.AllCategories,"Id","Name"))">
+
+      <input class="form-control form-control-lg border-0 bg-light" maxlength="2048" type="text" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" role="combobox" spellcheck="false" title="Search" placeholder="Search" aria-label="Search" asp-for="SearchValue">
+
+      <select class="input-group-append border-0 bg-light" asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.AllCategories,"Id","Name"))">
         <option value="0">All</option>
       </select>
       <div class="input-group-append">
-        <button class="btn btn-warning border-0" type="submit"><i class="fas fa-search"></i></button>
+        <button class="btn btn-light border" type="submit"><i class="fas fa-search"></i></button>
       </div>
       
     </div>

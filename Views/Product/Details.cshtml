@@ -10,12 +10,12 @@
 <div class="px-3">
 <div class="row mt-4 mx-0">
 
-  <div class="col-md-3 text-center px-3">
+  <div class="col-md-3 text-center px-3 mb-3">
     <img class="w-100 rounded shadow" src="@photoPath" asp-append-version="true" alt="@photoPath">
   </div>
 
-  <div class="col-md-6">
-  <div class="jumbotron bg-light border shadow">
+  <div class="col-md-6 mb-3">
+  <div class="jumbotron bg-light border shadow mb-0">
     <h4>@Item.Title</h4>
     <small class="d-block border-bottom mb-3">By @Item.Brand</small>
     
@@ -53,33 +53,33 @@
       if(Item.isAuction)
       {
         @model Bid
-        <form asp-controller="Product" asp-action="Bid" asp-route-id="@Item.Id" method="POST">
+        <form asp-controller="Product" asp-action="Bid" method="POST">
         <input type="hidden" asp-for="UserId" value="@ViewBag.UserId">
         <input type="hidden" asp-for="ProductId" value="@Item.Id">
 
-        <h4>Auction</h4>
-        <p class="text-muted">Current Bid: 
+        <h4 class="text-light">Auction</h4>
+        <p class="text-light">Current Bid: 
           <span class="text-warning d-inline">$@ViewBag.HighestBid</span>
         </p>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
+            <span class="input-group-text" id="basic-addon1">$</span>
           </div>
           @{
             var BidSuggestion = ViewBag.HighestBid + 1;
           }
-          <input type="text" asp-for="BidAmount" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" value="@BidSuggestion">
-          <span class="invalid-feedback d-block" asp-validation-for="BidAmount"></span>
-
+          <input type="text" class="form-control" placeholder="Place a Bid" aria-label="Username" aria-describedby="basic-addon1" value="@BidSuggestion" asp-for="BidAmount">
         </div>
-        <button type="submit" class="btn btn-success btn-block">Bid</button>
-        <small class="d-block">Ends in @Item.AuctionDuration Days</small>
-        if(ViewBag.HighestBidder.Bidder != null)
-        {
-          <small class="d-block">Highest Bidder - @ViewBag.HighestBidder.Bidder.FirstName</small>
+        <span class="invalid-feedback d-block" asp-validation-for="BidAmount"></span>
 
-          <small class="d-block">Last Bid Placed - @ViewBag.HighestBidder.TimeDiffCreate()</small>
+        <button type="submit" class="btn btn-success btn-block">Bid</button>
+        <small class="d-block text-light">Ends in @Item.AuctionDuration Days</small>
+        @if(ViewBag.HighestBidder.Bidder != null)
+        {
+          <small class="d-block text-light">Highest Bidder - @ViewBag.HighestBidder.Bidder.FirstName</small>
+
+          <small class="d-block text-light">Last Bid Placed - @ViewBag.HighestBidder.TimeDiffCreate()</small>
         }
         </form>;
       }

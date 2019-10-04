@@ -51,12 +51,14 @@
             <h5 class="card-title">@Product.Title</h5>
             @if(Product.isSale)
             {
+              <small>Buy Now for: </small>
               <p class="card-text">$@Product.Price</p>
               <a asp-controller="Product" asp-action="Details" asp-route-id="@Product.Id" class="btn btn-secondary btn-sm">View More</a>
               <a asp-controller="Product" asp-action="AddtoCart" asp-route-id="@Product.Id" class="btn btn-warning btn-sm">Add to Cart</a>
             }
             else if(Product.isAuction)
             {
+              <small>Bid Starts at: </small>
               <p class="card-text">$@Product.BidStartPrice</p>
               <a asp-controller="Product" asp-action="Details" asp-route-id="@Product.Id" class="btn btn-info btn-sm">Bid Now</a>
             }

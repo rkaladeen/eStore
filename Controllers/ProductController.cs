@@ -62,6 +62,10 @@ namespace eStore.Controllers
           model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
         }
         Product NewProduct = model.newProduct;
+        NewProduct.ImagePath = uniqueFileName;
+        NewProduct.Status = "Available";
+        dbContext.Products.Add(NewProduct);
+        dbContext.SaveChanges();
         if(NewProduct.isAuction){
           Bid InitialBid = new Bid(){
             UserId = (int)NewProduct.SellerId,
@@ -71,10 +75,6 @@ namespace eStore.Controllers
           dbContext.Bids.Add(InitialBid);
           dbContext.SaveChanges();
         }
-        NewProduct.ImagePath = uniqueFileName;
-        NewProduct.Status = "Available";
-        dbContext.Products.Add(NewProduct);
-        dbContext.SaveChanges();
         return RedirectToAction("Store");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
@@ -247,7 +247,7 @@ namespace eStore.Controllers
 
       var HighestBid = dbContext.Bids.OrderByDescending(b => b.BidAmount)
                                      .Include(u => u.Bidder)
-                                     .FirstOrDefault();
+                                     .FirstOrDefault(p => p.ProductId == id);
       if(HighestBid == null)
       {
         ViewBag.HighestBid = Product.BidStartPrice;
@@ -262,7 +262,7 @@ namespace eStore.Controllers
 
     public IActionResult Bid(Bid model)
     {
-      var HighestBid = dbContext.Bids.OrderByDescending(b => b.BidAmount).FirstOrDefault();
+      var HighestBid = dbContext.Bids.OrderByDescending(b => b.BidAmount).FirstOrDefault(p => p.ProductId == model.ProductId);
       if(ModelState.IsValid && model.BidAmount > HighestBid.BidAmount)
       {
         dbContext.Bids.Add(model);
