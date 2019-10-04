@@ -10,11 +10,12 @@
 <div class="px-3">
 <div class="row mt-4 mx-0">
 
-  <div class="col-md-3 text-center pt-5 px-3">
-    <img class="" src="@photoPath" asp-append-version="true" alt="@photoPath">
+  <div class="col-md-3 text-center px-3">
+    <img class="w-100 rounded shadow" src="@photoPath" asp-append-version="true" alt="@photoPath">
   </div>
 
   <div class="col-md-6">
+  <div class="jumbotron bg-light border shadow">
     <h4>@Item.Title</h4>
     <small class="d-block border-bottom mb-3">By @Item.Brand</small>
     
@@ -37,8 +38,9 @@
     
     <small class="text-muted d-block mt-4">@Item.Description</small>
   </div>
+  </div>
 
-  <div class="col-md-3 jumbotron">
+  <div class="col-md-3 jumbotron bg-dark shadow">
 
     @{
       if(Item.isSale)
