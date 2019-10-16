@@ -336,6 +336,7 @@ namespace eStore.Controllers
       ViewBag.UserCart = dbContext.Carts
         .Include(p => p.Products)
         .FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("UserId"));
+      ViewBag.Summary = getSummary(ViewBag.UserCart);
 
       return View();
     }
@@ -343,6 +344,34 @@ namespace eStore.Controllers
     public IActionResult Checkout(int CartId)
     {
       return RedirectToAction("Index", "Home");
+    }
+
+    public List<double> getSummary(Cart cart)
+    {
+      List<double> Summary = new List<double>();
+      
+      double Subtotal = 0;
+      double Shipping = 9.99;
+      double TaxPercent = 0.06;
+
+      foreach(Product item in cart.Products)
+      { Subtotal += (double)item.Price; }
+
+      double Tax = Subtotal * TaxPercent;
+      double TotalNoTax = Subtotal + Shipping;
+      double Total = Tax + Subtotal + Shipping;
+      Tax = Math.Round(Tax, 2);
+      TotalNoTax = Math.Round(TotalNoTax, 2);
+      Total = Math.Round(Total, 2);
+
+      Summary.Add(cart.Products.Count);
+      Summary.Add(Subtotal);
+      Summary.Add(Shipping);
+      Summary.Add(TaxPercent);
+      Summary.Add(Tax);
+      Summary.Add(TotalNoTax);
+      Summary.Add(Total);
+      return Summary;
     }
 
   }
