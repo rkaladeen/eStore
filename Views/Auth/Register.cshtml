@@ -1,3 +1,4 @@
+@model RegisterModel
 @{
   ViewData["Title"] = "New User";
 }
@@ -10,9 +11,7 @@
       <h2>eStore</h2>
       <h4>Register below</h4>
     </header>
-  @model RegisterViewModel
-  <form enctype="multipart/form-data" class="login-form" asp-controller="User" asp-action="CreateUser" method="POST">
-
+  <form enctype="multipart/form-data" class="login-form" asp-controller="Auth" asp-action="Register" method="POST">
   <div class="form-row">
     <div class="col-sm-6">
       

@@ -22,7 +22,7 @@ namespace eStore.Controllers
     {
       if(HttpContext.Session.GetString("UserName") == null)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -31,7 +31,7 @@ namespace eStore.Controllers
       ViewBag.AllCategories = dbContext.Categories.ToList();
       ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
 
-      return View("Index");
+      return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

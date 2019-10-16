@@ -41,49 +41,48 @@
   </div>
 
   <div class="col-md-3 jumbotron bg-dark shadow">
-
-    @{
-      if(Item.isSale)
-      {
-        <p class="text-muted">Price: 
-          <span class="text-warning d-inline">$@Item.Price</span>
-        </p>
-        <a class="btn btn-warning btn-block" asp-controller="Product" asp-action="AddtoCart" asp-route-id="@Item.Id">Add to Cart</a>;
-      }
-      if(Item.isAuction)
-      {
-        @model Bid
-        <form asp-controller="Product" asp-action="Bid" method="POST">
-        <input type="hidden" asp-for="UserId" value="@ViewBag.UserId">
-        <input type="hidden" asp-for="ProductId" value="@Item.Id">
-
-        <h4 class="text-light">Auction</h4>
-        <p class="text-light">Current Bid: 
-          <span class="text-warning d-inline">$@ViewBag.HighestBid</span>
-        </p>
-
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">$</span>
-          </div>
-          @{
-            var BidSuggestion = ViewBag.HighestBid + 1;
-          }
-          <input type="text" class="form-control" placeholder="Place a Bid" aria-label="Username" aria-describedby="basic-addon1" value="@BidSuggestion" asp-for="BidAmount">
-        </div>
-        <span class="invalid-feedback d-block" asp-validation-for="BidAmount"></span>
-
-        <button type="submit" class="btn btn-success btn-block">Bid</button>
-        <small class="d-block text-light">Ends in @Item.AuctionDuration Days</small>
-        @if(ViewBag.HighestBidder.Bidder != null)
-        {
-          <small class="d-block text-light">Highest Bidder - @ViewBag.HighestBidder.Bidder.FirstName</small>
-
-          <small class="d-block text-light">Last Bid Placed - @ViewBag.HighestBidder.TimeDiffCreate()</small>
-        }
-        </form>;
-      }
+  @{
+    if(Item.isSale)
+    {
+      <p class="text-muted">Price: 
+        <span class="text-warning d-inline">$@Item.Price</span>
+      </p>
+      <a class="btn btn-warning btn-block" asp-controller="Product" asp-action="AddtoCart" asp-route-id="@Item.Id">Add to Cart</a>;
     }
+    if(Item.isAuction)
+    {
+      @model Bid
+      <form asp-controller="Product" asp-action="Bid" method="POST">
+      <input type="hidden" asp-for="UserId" value="@ViewBag.UserId">
+      <input type="hidden" asp-for="ProductId" value="@Item.Id">
+
+      <h4 class="text-light">Auction</h4>
+      <p class="text-light">Current Bid: 
+        <span class="text-warning d-inline">$@ViewBag.HighestBid</span>
+      </p>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">$</span>
+        </div>
+        @{
+          var BidSuggestion = ViewBag.HighestBid + 1;
+        }
+        <input type="text" class="form-control" placeholder="Place a Bid" aria-label="Username" aria-describedby="basic-addon1" value="@BidSuggestion" asp-for="BidAmount">
+      </div>
+      <span class="invalid-feedback d-block" asp-validation-for="BidAmount"></span>
+
+      <button type="submit" class="btn btn-success btn-block">Bid</button>
+      <small class="d-block text-light">Ends in @Item.AuctionDuration Days</small>
+      @if(ViewBag.HighestBidder.Bidder != null)
+      {
+        <small class="d-block text-light">Highest Bidder - @ViewBag.HighestBidder.Bidder.FirstName</small>
+
+        <small class="d-block text-light">Last Bid Placed - @ViewBag.HighestBidder.TimeDiffCreate()</small>
+      }
+      </form>;
+    }
+  }
   </div>
 </div>
 </div>

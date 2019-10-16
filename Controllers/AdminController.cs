@@ -18,7 +18,7 @@ namespace eStore.Controllers
     {
       if(HttpContext.Session.GetString("UserName") == null || HttpContext.Session.GetInt32("isAdmin") == 0)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       else if(HttpContext.Session.GetInt32("isAdmin") == 1)
       {
@@ -31,7 +31,7 @@ namespace eStore.Controllers
         ViewBag.AllUsers = dbContext.Users.ToList();
         return View("Admin");
       }
-      return RedirectToAction("LogIn", "User");
+      return RedirectToAction("LogIn", "Auth");
     }
 
     [ValidateAntiForgeryToken]

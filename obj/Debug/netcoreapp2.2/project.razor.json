@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\rkala\\Dropbox\\Projects\\eStore\\eStore.csproj",
+  "FilePath": "c:\\Users\\rkala\\Dropbox\\Projects\\estore\\eStore.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",
@@ -2966,13 +2966,13 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\User\\_ProfileSetting.cshtml",
-      "TargetPath": "Views\\User\\_ProfileSetting.cshtml",
+      "FilePath": "Views\\Product\\Bids.cshtml",
+      "TargetPath": "Views\\Product\\Bids.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Product\\Bids.cshtml",
-      "TargetPath": "Views\\Product\\Bids.cshtml",
+      "FilePath": "Views\\Product\\Checkout.cshtml",
+      "TargetPath": "Views\\Product\\Checkout.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2981,13 +2981,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\User\\_ChangePassword.cshtml",
-      "TargetPath": "Views\\User\\_ChangePassword.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\User\\Account.cshtml",
-      "TargetPath": "Views\\User\\Account.cshtml",
+      "FilePath": "Views\\Auth\\Account.cshtml",
+      "TargetPath": "Views\\Auth\\Account.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2998,6 +2993,11 @@
     {
       "FilePath": "Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Auth\\_ProfileSetting.cshtml",
+      "TargetPath": "Views\\Auth\\_ProfileSetting.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3041,13 +3041,13 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\User\\NewUser.cshtml",
-      "TargetPath": "Views\\User\\NewUser.cshtml",
+      "FilePath": "Views\\Product\\Orders.cshtml",
+      "TargetPath": "Views\\Product\\Orders.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Product\\Orders.cshtml",
-      "TargetPath": "Views\\Product\\Orders.cshtml",
+      "FilePath": "Views\\Auth\\Register.cshtml",
+      "TargetPath": "Views\\Auth\\Register.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3056,13 +3056,13 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\User\\_PaymentOptions.cshtml",
-      "TargetPath": "Views\\User\\_PaymentOptions.cshtml",
+      "FilePath": "Views\\Admin\\_AllUsers.cshtml",
+      "TargetPath": "Views\\Admin\\_AllUsers.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Admin\\_AllUsers.cshtml",
-      "TargetPath": "Views\\Admin\\_AllUsers.cshtml",
+      "FilePath": "Views\\Auth\\_ChangePassword.cshtml",
+      "TargetPath": "Views\\Auth\\_ChangePassword.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3078,6 +3078,11 @@
     {
       "FilePath": "Views\\Product\\Store.cshtml",
       "TargetPath": "Views\\Product\\Store.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Auth\\_PaymentOptions.cshtml",
+      "TargetPath": "Views\\Auth\\_PaymentOptions.cshtml",
       "FileKind": "mvc"
     }
   ],

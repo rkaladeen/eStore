@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eStore.Models {
-  public class LoginUser
+  public class LogInModel
   {
     [Required(ErrorMessage="{0} is required")]
     [EmailAddress(ErrorMessage="Please enter a valid {0}")]

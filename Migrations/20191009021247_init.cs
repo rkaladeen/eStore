@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace eStore.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,10 +85,11 @@ namespace eStore.Migrations
                     Description = table.Column<string>(maxLength: 1000, nullable: false),
                     isAuction = table.Column<bool>(nullable: false),
                     BidStartPrice = table.Column<double>(nullable: true),
-                    AuctionDuration = table.Column<string>(nullable: true),
+                    AuctionDuration = table.Column<int>(nullable: false),
                     isSale = table.Column<bool>(nullable: false),
                     Price = table.Column<double>(nullable: true),
-                    SaleDuration = table.Column<string>(nullable: true),
+                    SaleDuration = table.Column<int>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
                     CartId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -114,6 +115,45 @@ namespace eStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Bids",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    BidAmount = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bids", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bids_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bids_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bids_ProductId",
+                table: "Bids",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bids_UserId",
+                table: "Bids",
+                column: "UserId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_UserId",
                 table: "Carts",
@@ -137,6 +177,9 @@ namespace eStore.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Bids");
+
             migrationBuilder.DropTable(
                 name: "Products");
 

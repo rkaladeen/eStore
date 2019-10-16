@@ -9,8 +9,8 @@ using eStore.Models;
 namespace eStore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20191001144757_newBidModel")]
-    partial class newBidModel
+    [Migration("20191009044539_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,7 @@ namespace eStore.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AuctionDuration");
+                    b.Property<int>("AuctionDuration");
 
                     b.Property<double?>("BidStartPrice");
 
@@ -86,13 +86,15 @@ namespace eStore.Migrations
                         .IsRequired()
                         .HasMaxLength(1000);
 
+                    b.Property<DateTime>("EndDate");
+
                     b.Property<string>("ImagePath");
 
                     b.Property<string>("Model");
 
                     b.Property<double?>("Price");
 
-                    b.Property<string>("SaleDuration");
+                    b.Property<int>("SaleDuration");
 
                     b.Property<int>("SellerId");
 

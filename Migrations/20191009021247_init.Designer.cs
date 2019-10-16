@@ -9,8 +9,8 @@ using eStore.Models;
 namespace eStore.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20191001154929_updateBidModel1")]
-    partial class updateBidModel1
+    [Migration("20191009021247_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

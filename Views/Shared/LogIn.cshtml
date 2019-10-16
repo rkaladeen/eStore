@@ -1,3 +1,4 @@
+@model LogInModel
 @{
   ViewData["Title"] = "Login";
 }
@@ -10,14 +11,13 @@
       <h2>eStore</h2>
       <h4>Login</h4>
     </header>
-    @model LoginUser
-    <form class="login-form" asp-controller="User" asp-action="LoginPOST"  method="POST">
-      <input type="text" class="login-input" placeholder="Email" asp-for="Email" autofocus/>
+    <form class="login-form" asp-controller="Auth" asp-action="LogIn"  method="POST">
+      <input type="text" class="login-input" placeholder="Email" asp-for="Email" autofocus aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" role="combobox" spellcheck="false" />
       <span class="invalid-feedback d-block" asp-validation-for="Email"></span>
-      <input type="password" class="login-input" placeholder="Password" asp-for="Password"/>
+      <input type="password" class="login-input" placeholder="Password" asp-for="Password" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" role="combobox" spellcheck="false" />
       <span class="invalid-feedback d-block" asp-validation-for="Password"></span>
       <div class="submit-container">
-        <small class="signup-button text-muted">Don't have an account? <a class="text-primary" asp-action="NewUser">Sign Up Here</a></small>
+        <small class="signup-button text-muted">Don't have an account? <a class="text-primary" asp-controller="Auth" asp-action="Register">Sign Up Here</a></small>
         <button type="submit" class="login-button">SIGN IN</button>
       </div>
     </form>

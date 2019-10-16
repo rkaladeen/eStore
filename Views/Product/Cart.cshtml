@@ -1,18 +1,37 @@
-@{
-  ViewData["Title"] = "Cart";
+@{ 
+  ViewData["Title"] = "Cart"; 
+  int Quantity = 0;
+  double Subtotal = 0;
 }
 
 <div class="container">
-  <h1 class="display-4">Cart</h1>
-  <div class="jumbotron bg-light">
-
-    <ul class="list-group">
-      @{
-        foreach(var item in ViewBag.UserCart.Products)
-        {
-        var photoPath = "~/images/" + (item.ImagePath ?? "noimage.png");
+  <h1 class="display-4">Shopping Cart</h1>
+  <div class="row">
+    <div class="col-sm-9 mb-3">
+      @if(ViewBag.UserCart.Products.Count == 0)
+      {
         <li class="list-group-item">
-          
+          <div class="row no-gutters">
+            <div class="col-12">
+              <div class="card-body">
+                <h5 class="card-title">Cart Empty</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+              </div>
+            </div>
+          </div>
+        </li>;
+      }  
+      
+      <ul class="list-group">
+        @foreach(Product item in ViewBag.UserCart.Products)
+        {
+          if(ViewBag.UserCart.Products.Count == 0)
+          { break; }
+          var photoPath = "~/images/" + (item.ImagePath ?? "noimage.png");
+          Subtotal += (double)item.Price;
+          <li class="list-group-item">
+            
             <div class="row no-gutters">
               <div class="col-2">
                 <img src="@photoPath" asp-append-version="true" class="card-img" alt="@photoPath">
@@ -25,12 +44,20 @@
                 </div>
               </div>
             </div>
-          
-
-        </li>;
+          </li>;
         }
-      }
-    </ul>
+      </ul>
+    </div>
 
-  </div>
+    @if(ViewBag.UserCart.Products.Count != 0)
+    {
+      Quantity = ViewBag.UserCart.Products.Count;
+      <div class="col-sm-3 card bg-light h-100">
+        <div class="card-body">
+          <div class="card-title">Subtotal (@Quantity item): $@Subtotal</div>
+          <a class="btn btn-warning btn-block" asp-controller="Product" asp-action="Checkout">Proceed to Checkout</a>
+        </div>
+      </div>
+    }
+    </div> <!--End of Row-->
 </div>

@@ -89,7 +89,7 @@ namespace eStore.Controllers
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -105,7 +105,7 @@ namespace eStore.Controllers
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -120,7 +120,7 @@ namespace eStore.Controllers
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -134,7 +134,7 @@ namespace eStore.Controllers
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -148,7 +148,7 @@ namespace eStore.Controllers
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -188,6 +188,7 @@ namespace eStore.Controllers
         newCart.Products.Add(itemToAdd);
         dbContext.Carts.Add(newCart);
         dbContext.SaveChanges();
+        userCart = newCart;
       }
       else
       {
@@ -224,14 +225,14 @@ namespace eStore.Controllers
       itemToRemove.Status = "Available";
       dbContext.SaveChanges();
       HttpContext.Session.SetInt32("Cart", userCart.Products.Count);
-      return RedirectToAction("Store");
+      return RedirectToAction("Cart");
     }
 
     public IActionResult Details(int id)
     {
       if (HttpContext.Session.GetString("UserName") == null)
       {
-        return RedirectToAction("LogIn", "User");
+        return RedirectToAction("LogIn", "Auth");
       }
       ViewBag.UserName = HttpContext.Session.GetString("UserName");
       ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
@@ -319,6 +320,30 @@ namespace eStore.Controllers
     //   dbContext.SaveChanges();
     //   return RedirectToAction("Index");
     // }
+
+    [HttpGet]
+    public IActionResult Checkout()
+    {
+      if (HttpContext.Session.GetString("UserName") == null)
+      {
+        return RedirectToAction("LogIn", "Auth");
+      }
+      ViewBag.UserName = HttpContext.Session.GetString("UserName");
+      ViewBag.UserId = HttpContext.Session.GetInt32("UserId");
+      ViewBag.isAdmin = HttpContext.Session.GetInt32("isAdmin");
+      ViewBag.Avatar = HttpContext.Session.GetString("Avatar");
+      ViewBag.Cart = HttpContext.Session.GetInt32("Cart");
+      ViewBag.UserCart = dbContext.Carts
+        .Include(p => p.Products)
+        .FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("UserId"));
+
+      return View();
+    }
+    [HttpPost]
+    public IActionResult Checkout(int CartId)
+    {
+      return RedirectToAction("Index", "Home");
+    }
 
   }
 }
